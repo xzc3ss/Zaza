@@ -1,0 +1,36 @@
+﻿*
+{
+	margin: 0;
+	padding: 0;
+}
+
+html
+{
+	background-color: #e2e2e2;
+	background: url("../Images/bg_img.jpg");
+	margin: 0;
+	padding: 0;
+}
+
+#contentwrapper
+{
+	/*background: url("../Images/bg_img.jpg");*/
+	/*min-height: 900px;
+    min-width: 980px;*/
+	padding-left: 100px;
+	padding-right: 100px;
+}
+
+#publicMenu
+{
+	/*background: url("../Images/menu_header.png");*/
+	background: -moz-linear-gradient(top, #000000 87%, #fff 100%);
+	background: -webkit-gradient(linear, left top, left bottom, from(#000000), to(#fff));
+	background: -o-gradient(#000000, #fff);
+	height: 53px;
+	display: block;
+	-moz-box-shadow: -5px -5px #fff;
+	-webkit-box-shadow: -5px -5px #fff;
+	box-shadow: -2px 5px 20px #FFEFFF;
+	border-radius: 13px;
+}
