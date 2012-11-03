@@ -1,74 +1,57 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
-
-public class ZazaIdentity
+namespace Zaza.Classes
 {
-  public new List<WebsiteStructure.WebsiteModulePagesMetadata> AllowedModulePages
-  {
-    get;
-    set;
-  }
-  public Boolean IsSuperUser
-  {
-    get;
-    set;
-  }
+	public class ZazaIdentity
+	{
+		public new List<WebsiteStructure.WebsiteModulePagesMetadata> AllowedModulePages
+		{
+			get;
+			set;
+		}
 
-  private string _language;
-  public string Language
-  {
-    get;
-    set;
-  }
+		public Boolean IsSuperUser
+		{
+			get;
+			set;
+		}
 
-  //public ZazaIdentity Current
-  //{
-  //  get
-  //  {
-  //    return _language;
-  //  }
-  //  //set
-  //  //{
-  //  //}
-  //}
+		private string _language;
+		public string Language
+		{
+			get;
+			set;
+		}
 
-  //               Public Class AutoccasionIdentity
+		public static ZazaIdentity Current
+		{
+			get
+			{
+				if (Core.Core.Session["Identity"] == null)
+				{
+					Core.Core.Session["Identity"] = new ZazaIdentity();
+				}
+				return (ZazaIdentity)Core.Core.Session["Identity"];
+			}
+			set { Core.Core.Session["Identity"] = value; }
+		}
 
-  //  Public Property AllowedModulePages As New List(Of WebsiteStructure.WebsiteModulePagesMetadata)
-  //  Public Property IsSuperUser As Boolean
 
-  //  Private _language As String
 
-  //  Public Property Language As String
-  //    Get
-  //      If _language Is Nothing Then
-  //        Return "nl"
-  //      Else
-  //        Return _language
-  //      End If
-  //    End Get
-  //    Set(ByVal value As String)
-  //      _language = value
-  //    End Set
-  //  End Property
+		//  Public Property AllowedModulePages As New List(Of WebsiteStructure.WebsiteModulePagesMetadata)
+		//  Public Property IsSuperUser As Boolean
 
-  //  Public Property User As Customer
+		//  Private _language As String
 
-  //  Public Shared Property Current As AutoccasionIdentity
-  //    Get
-  //      If Session("Identity") Is Nothing Then
-  //        Session("Identity") = New AutoccasionIdentity()
-  //      End If
-  //      Return Session("Identity")
-  //    End Get
-  //    Set(ByVal value As AutoccasionIdentity)
-  //      Session("Identity") = value
-  //    End Set
-  //  End Property
 
-  //End Class
+		//  Public Property User As Customer
 
+
+
+
+
+
+
+	}
 }

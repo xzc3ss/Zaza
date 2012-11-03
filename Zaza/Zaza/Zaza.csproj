@@ -165,11 +165,17 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Classes\Attributes\LocalizedCompareAttribute.cs" />
+    <Compile Include="Classes\Attributes\LocalizedDisplayName.cs" />
+    <Compile Include="Classes\Attributes\LocalizedRegularExpression.cs" />
+    <Compile Include="Classes\Attributes\LocalizedRequiredAttribute.cs" />
+    <Compile Include="Core\Core.cs" />
     <Compile Include="Classes\WebsiteStructure.cs" />
     <Compile Include="Classes\ZazaController.cs" />
     <Compile Include="Classes\ZazaIdentity.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Core\CoreEmail.cs" />
     <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
