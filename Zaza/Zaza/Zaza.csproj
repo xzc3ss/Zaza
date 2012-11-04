@@ -169,6 +169,7 @@
     <Compile Include="Classes\Attributes\LocalizedDisplayName.cs" />
     <Compile Include="Classes\Attributes\LocalizedRegularExpression.cs" />
     <Compile Include="Classes\Attributes\LocalizedRequiredAttribute.cs" />
+    <Compile Include="Controllers\ShoppingCartController.cs" />
     <Compile Include="Core\Core.cs" />
     <Compile Include="Classes\WebsiteStructure.cs" />
     <Compile Include="Classes\ZazaController.cs" />
@@ -176,6 +177,8 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Core\CoreEmail.cs" />
+    <Compile Include="Core\Order.cs" />
+    <Compile Include="Core\ShoppingCart.cs" />
     <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -239,6 +242,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Shared\PublicMenu.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\ShoppingCart\CartSummary.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
