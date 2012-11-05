@@ -190,7 +190,18 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Resources\Images\bg_img.jpg" />
+    <Content Include="Resources\Images\button1.jpg" />
+    <Content Include="Resources\Images\buttonwhite.jpg" />
+    <Content Include="Resources\Images\carticon.png" />
+    <Content Include="Resources\Images\header_cart_quantity.png" />
+    <Content Include="Resources\Images\inputs.png" />
     <Content Include="Resources\Images\menu_header.png" />
+    <Content Include="Resources\Images\news.jpg" />
+    <Content Include="Resources\Photos\slide-1-667x505.jpg" />
+    <Content Include="Resources\Images\submitbtn.gif" />
+    <Content Include="Resources\Images\tail-menu.png" />
+    <Content Include="Resources\Images\topmenu_active.png" />
+    <Content Include="Resources\Images\topmenu_bg.png" />
     <Content Include="Resources\Stylesheet\Site.css" />
     <Content Include="Resources\Stylesheet\Zaza.css" />
     <Content Include="Scripts\jquery-1.7.1-vsdoc.js" />
@@ -208,6 +219,7 @@
     <Content Include="Scripts\knockout-2.1.0.debug.js" />
     <Content Include="Scripts\knockout-2.1.0.js" />
     <Content Include="Scripts\modernizr-2.5.3.js" />
+    <Content Include="Resources\Photos\d2b9641e-477f-4511-81c5-379b566490d6.jpg" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -245,6 +257,18 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\ShoppingCart\CartSummary.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\Header.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\Footer.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\Ads.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\Item.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -1,15 +1,15 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="utf-8" />
-	<title>@ViewBag.Title - My ASP.NET MVC Application</title>
-	<link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
-	<meta name="viewport" content="width=device-width" />
-	@Styles.Render("~/Resources/Stylesheet/Zaza.css")
-	@*  @Scripts.Render("~/bundles/modernizr")*@
+  <meta charset="utf-8" />
+  <title>@ViewBag.Title - My ASP.NET MVC Application</title>
+  <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+  <meta name="viewport" content="width=device-width" />
+  @Styles.Render("~/Resources/Stylesheet/Zaza.css")
+  @*  @Scripts.Render("~/bundles/modernizr")*@
 </head>
 <body>
-	@*   
+  @*   
         <div class="content-wrapper">
             <div class="float-left">
                 <p class="site-title">@Html.ActionLink("your logo here", "Index", "Home")</p>
@@ -28,32 +28,26 @@
             </div>
         </div>
   *@
-	<div id="contentwrapper">
-		<div id="top-header">
-			<section id="login">
-				@Html.Partial("_LoginPartial")
-			</section>
-			@Html.Partial("PublicMenu")
+  <div id="contentwrapper">
+    <div id="top-header">
+      @Html.Partial("Header")
+      @Html.Partial("PublicMenu")
 
-		</div>
-		<div id="content-main">
-			@RenderBody()
+    </div>
+    <div id="main-content">
+      @RenderBody()
+    </div>
 
-		</div>
-
-		@*  @RenderSection("featured", required: false)*@
-		@*   <section class="content-wrapper main-content clear-fix">
+    @*  @RenderSection("featured", required: false)*@
+    @*   <section class="content-wrapper main-content clear-fix">
            
         </section>*@
-	</div>
-	@*    <footer>
-        <div class="content-wrapper">
-            <div class="float-left">
-                <p>
-                    &copy; @DateTime.Now.Year - My ASP.NET MVC Application</p>
-            </div>
-        </div>
-    </footer>*@ @* @Scripts.Render("~/bundles/jquery")*@
-	@RenderSection("scripts", required: false)
+    <footer>
+      @Html.Partial("Footer")
+    </footer>
+  </div>
+
+  @* @Scripts.Render("~/bundles/jquery")*@
+  @RenderSection("scripts", required: false)
 </body>
 </html>
