@@ -29,6 +29,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x86</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -44,6 +45,8 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Data.Entity" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -165,10 +168,17 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\DefaultController.cs" />
+    <Compile Include="Areas\Admin\Models\Class1.cs" />
     <Compile Include="Classes\Attributes\LocalizedCompareAttribute.cs" />
     <Compile Include="Classes\Attributes\LocalizedDisplayName.cs" />
     <Compile Include="Classes\Attributes\LocalizedRegularExpression.cs" />
     <Compile Include="Classes\Attributes\LocalizedRequiredAttribute.cs" />
+    <Compile Include="Classes\Grid.cs" />
+    <Compile Include="Classes\Helpers\GridColumn.cs" />
+    <Compile Include="Classes\Helpers\GridRow.cs" />
+    <Compile Include="Classes\Helpers\SortDirection.cs" />
     <Compile Include="Controllers\ShoppingCartController.cs" />
     <Compile Include="Core\Core.cs" />
     <Compile Include="Classes\WebsiteStructure.cs" />
@@ -179,6 +189,54 @@
     <Compile Include="Core\CoreEmail.cs" />
     <Compile Include="Core\Order.cs" />
     <Compile Include="Core\ShoppingCart.cs" />
+    <Compile Include="Entities\Category.cs">
+      <DependentUpon>Zaza.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\DeliveryAddress.cs">
+      <DependentUpon>Zaza.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Order.cs">
+      <DependentUpon>Zaza.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\OrderDetail.cs">
+      <DependentUpon>Zaza.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Product.cs">
+      <DependentUpon>Zaza.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\ProductMedia.cs">
+      <DependentUpon>Zaza.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\SizeingChart.cs">
+      <DependentUpon>Zaza.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Supplier.cs">
+      <DependentUpon>Zaza.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\SupplierSentOrder.cs">
+      <DependentUpon>Zaza.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\User.cs">
+      <DependentUpon>Zaza.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\WhishList.cs">
+      <DependentUpon>Zaza.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Zaza.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Zaza.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Zaza.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Zaza.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Zaza.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Zaza.edmx</DependentUpon>
+    </Compile>
     <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -269,6 +327,39 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Shared\Item.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EntityDeploy Include="Entities\Zaza.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>Zaza.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Entities\Zaza.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Zaza.edmx</DependentUpon>
+      <LastGenOutput>Zaza.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Entities\Zaza.edmx.diagram">
+      <DependentUpon>Zaza.edmx</DependentUpon>
+    </Content>
+    <Content Include="Entities\Zaza.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Zaza.edmx</DependentUpon>
+      <LastGenOutput>Zaza.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Admin\Views\Web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Admin\Views\Default\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Admin\Views\Shared\_LayoutMaster.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

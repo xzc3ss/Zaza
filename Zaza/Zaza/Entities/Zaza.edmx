@@ -1,0 +1,527 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="ZazaModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <EntityContainer Name="ZazaModelStoreContainer">
+          <EntitySet Name="Categories" EntityType="ZazaModel.Store.Categories" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="DeliveryAddresses" EntityType="ZazaModel.Store.DeliveryAddresses" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="OrderDetails" EntityType="ZazaModel.Store.OrderDetails" store:Type="Tables" store:Schema="dbo" store:Name="OrderDetails">
+            <DefiningQuery>SELECT 
+      [OrderDetails].[OrderID] AS [OrderID], 
+      [OrderDetails].[ProductID] AS [ProductID], 
+      [OrderDetails].[Quantity] AS [Quantity], 
+      [OrderDetails].[AddedDate] AS [AddedDate]
+      FROM [dbo].[OrderDetails] AS [OrderDetails]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="Orders" EntityType="ZazaModel.Store.Orders" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="ProductMedia" EntityType="ZazaModel.Store.ProductMedia" store:Type="Tables" store:Schema="dbo" store:Name="ProductMedia">
+            <DefiningQuery>SELECT 
+      [ProductMedia].[ProductID] AS [ProductID], 
+      [ProductMedia].[SupplierID] AS [SupplierID], 
+      [ProductMedia].[OrderID] AS [OrderID], 
+      [ProductMedia].[FileName] AS [FileName]
+      FROM [dbo].[ProductMedia] AS [ProductMedia]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="Products" EntityType="ZazaModel.Store.Products" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="SizeingCharts" EntityType="ZazaModel.Store.SizeingCharts" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Suppliers" EntityType="ZazaModel.Store.Suppliers" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="SupplierSentOrder" EntityType="ZazaModel.Store.SupplierSentOrder" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Users" EntityType="ZazaModel.Store.Users" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="WhishLists" EntityType="ZazaModel.Store.WhishLists" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="FK_DeliveryAddresses_DeliveryAddresses" Association="ZazaModel.Store.FK_DeliveryAddresses_DeliveryAddresses">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="DeliveryAddresses" EntitySet="DeliveryAddresses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductMedia_Products" Association="ZazaModel.Store.FK_ProductMedia_Products">
+            <End Role="Products" EntitySet="Products" />
+            <End Role="ProductMedia" EntitySet="ProductMedia" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Categories">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="TempName" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="DeliveryAddresses">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="UserID" Type="int" />
+          <Property Name="Street" Type="varchar" MaxLength="50" />
+          <Property Name="PostCode" Type="varchar" MaxLength="50" />
+          <Property Name="City" Type="varchar" MaxLength="50" />
+          <Property Name="StreetNo" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <!--Errors Found During Generation:
+      warning 6002: The table/view 'Zaza.dbo.OrderDetails' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+        <EntityType Name="OrderDetails">
+          <Key>
+            <PropertyRef Name="ProductID" />
+            <PropertyRef Name="Quantity" />
+          </Key>
+          <Property Name="OrderID" Type="int" />
+          <Property Name="ProductID" Type="int" Nullable="false" />
+          <Property Name="Quantity" Type="int" Nullable="false" />
+          <Property Name="AddedDate" Type="date" />
+        </EntityType>
+        <EntityType Name="Orders">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="UserID" Type="int" Nullable="false" />
+          <Property Name="AddedDate" Type="date" />
+          <Property Name="UserConfirmed" Type="bit" />
+          <Property Name="Deleted" Type="bit" />
+          <Property Name="ConfirmedPayment" Type="bit" />
+        </EntityType>
+        <!--Errors Found During Generation:
+      warning 6002: The table/view 'Zaza.dbo.ProductMedia' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+        <EntityType Name="ProductMedia">
+          <Key>
+            <PropertyRef Name="ProductID" />
+          </Key>
+          <Property Name="ProductID" Type="int" Nullable="false" />
+          <Property Name="SupplierID" Type="int" />
+          <Property Name="OrderID" Type="int" />
+          <Property Name="FileName" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Products">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Code" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="CategoryID" Type="int" Nullable="false" />
+          <Property Name="Price" Type="decimal" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="50" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="SizeChartID" Type="int" Nullable="false" />
+          <Property Name="AddedDate" Type="date" />
+          <Property Name="AddedBy" Type="int" />
+          <Property Name="Deleted" Type="bit" />
+          <Property Name="Active" Type="bit" />
+        </EntityType>
+        <EntityType Name="SizeingCharts">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Path" Type="varchar" MaxLength="50" />
+          <Property Name="SupplierID" Type="int" />
+        </EntityType>
+        <EntityType Name="Suppliers">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="Website" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="Email" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="Phone" Type="varchar" MaxLength="50" />
+          <Property Name="Country" Type="varbinary" MaxLength="50" />
+          <Property Name="DeliveryFee" Type="decimal" />
+        </EntityType>
+        <EntityType Name="SupplierSentOrder">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="OrderID" Type="int" Nullable="false" />
+          <Property Name="SentDate" Type="date" Nullable="false" />
+          <Property Name="EstimatedReceiveDate" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="UserName" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="Email" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="Password" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="FirstName" Type="varchar" MaxLength="50" />
+          <Property Name="LastName" Type="varchar" MaxLength="50" />
+          <Property Name="AddedDate" Type="date" />
+          <Property Name="Deleted" Type="bit" />
+          <Property Name="CreatedDate" Type="date" />
+        </EntityType>
+        <EntityType Name="WhishLists">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="UserID" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_DeliveryAddresses_DeliveryAddresses">
+          <End Role="Users" Type="ZazaModel.Store.Users" Multiplicity="0..1" />
+          <End Role="DeliveryAddresses" Type="ZazaModel.Store.DeliveryAddresses" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="DeliveryAddresses">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProductMedia_Products">
+          <End Role="Products" Type="ZazaModel.Store.Products" Multiplicity="1" />
+          <End Role="ProductMedia" Type="ZazaModel.Store.ProductMedia" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Products">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ProductMedia">
+              <PropertyRef Name="ProductID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <!--Errors Found During Generation:
+      warning 6013: The table/view 'Zaza.dbo.ProductDetails' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+      
+      <EntityType Name="ProductDetails">
+        <Property Name="ProductID" Type="int" />
+        <Property Name="ProducerCode" Type="varchar" MaxLength="50" />
+        <Property Name="SupplierID" Type="int" />
+        <Property Name="ShippingPrice" Type="decimal" />
+        <Property Name="BuyingPrice" Type="decimal" />
+        <Property Name="TotalBuyingPrice" Type="decimal" />
+      </EntityType>
+      Errors Found During Generation:
+      warning 6013: The table/view 'Zaza.dbo.WhishlistDetails' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+      
+      <EntityType Name="WhishlistDetails">
+        <Property Name="WhishlistID" Type="int" />
+      </EntityType>-->
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ZazaModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+        <EntityContainer Name="ZazaEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Categories" EntityType="ZazaModel.Category" />
+          <EntitySet Name="DeliveryAddresses" EntityType="ZazaModel.DeliveryAddress" />
+          <EntitySet Name="OrderDetails" EntityType="ZazaModel.OrderDetail" />
+          <EntitySet Name="Orders" EntityType="ZazaModel.Order" />
+          <EntitySet Name="ProductMedias" EntityType="ZazaModel.ProductMedia" />
+          <EntitySet Name="Products" EntityType="ZazaModel.Product" />
+          <EntitySet Name="SizeingCharts" EntityType="ZazaModel.SizeingChart" />
+          <EntitySet Name="Suppliers" EntityType="ZazaModel.Supplier" />
+          <EntitySet Name="SupplierSentOrders" EntityType="ZazaModel.SupplierSentOrder" />
+          <EntitySet Name="Users" EntityType="ZazaModel.User" />
+          <EntitySet Name="WhishLists" EntityType="ZazaModel.WhishList" />
+          <AssociationSet Name="FK_DeliveryAddresses_DeliveryAddresses" Association="ZazaModel.FK_DeliveryAddresses_DeliveryAddresses">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="DeliveryAddresses" EntitySet="DeliveryAddresses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductMedia_Products" Association="ZazaModel.FK_ProductMedia_Products">
+            <End Role="Products" EntitySet="Products" />
+            <End Role="ProductMedia" EntitySet="ProductMedias" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Category">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="TempName" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="DeliveryAddress">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserID" Type="Int32" />
+          <Property Name="Street" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="PostCode" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="City" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="StreetNo" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <NavigationProperty Name="User" Relationship="ZazaModel.FK_DeliveryAddresses_DeliveryAddresses" FromRole="DeliveryAddresses" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="OrderDetail">
+          <Key>
+            <PropertyRef Name="ProductID" />
+            <PropertyRef Name="Quantity" />
+          </Key>
+          <Property Name="OrderID" Type="Int32" />
+          <Property Name="ProductID" Type="Int32" Nullable="false" />
+          <Property Name="Quantity" Type="Int32" Nullable="false" />
+          <Property Name="AddedDate" Type="DateTime" Precision="0" />
+        </EntityType>
+        <EntityType Name="Order">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Name="AddedDate" Type="DateTime" Precision="0" />
+          <Property Name="UserConfirmed" Type="Boolean" />
+          <Property Name="Deleted" Type="Boolean" />
+          <Property Name="ConfirmedPayment" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="ProductMedia">
+          <Key>
+            <PropertyRef Name="ProductID" />
+          </Key>
+          <Property Name="ProductID" Type="Int32" Nullable="false" />
+          <Property Name="SupplierID" Type="Int32" />
+          <Property Name="OrderID" Type="Int32" />
+          <Property Name="FileName" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="Product" Relationship="ZazaModel.FK_ProductMedia_Products" FromRole="ProductMedia" ToRole="Products" />
+        </EntityType>
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Code" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="CategoryID" Type="Int32" Nullable="false" />
+          <Property Name="Price" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="Title" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="SizeChartID" Type="Int32" Nullable="false" />
+          <Property Name="AddedDate" Type="DateTime" Precision="0" />
+          <Property Name="AddedBy" Type="Int32" />
+          <Property Name="Deleted" Type="Boolean" />
+          <Property Name="Active" Type="Boolean" />
+          <NavigationProperty Name="ProductMedia" Relationship="ZazaModel.FK_ProductMedia_Products" FromRole="Products" ToRole="ProductMedia" />
+        </EntityType>
+        <EntityType Name="SizeingChart">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Path" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="SupplierID" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Supplier">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="Website" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="Phone" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="Country" Type="Binary" MaxLength="50" FixedLength="false" />
+          <Property Name="DeliveryFee" Type="Decimal" Precision="18" Scale="0" />
+        </EntityType>
+        <EntityType Name="SupplierSentOrder">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OrderID" Type="Int32" Nullable="false" />
+          <Property Name="SentDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="EstimatedReceiveDate" Type="DateTime" Nullable="false" Precision="0" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserName" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="Password" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="FirstName" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="LastName" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="AddedDate" Type="DateTime" Precision="0" />
+          <Property Name="Deleted" Type="Boolean" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="DeliveryAddresses" Relationship="ZazaModel.FK_DeliveryAddresses_DeliveryAddresses" FromRole="Users" ToRole="DeliveryAddresses" />
+        </EntityType>
+        <EntityType Name="WhishList">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_DeliveryAddresses_DeliveryAddresses">
+          <End Role="Users" Type="ZazaModel.User" Multiplicity="0..1" />
+          <End Role="DeliveryAddresses" Type="ZazaModel.DeliveryAddress" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="DeliveryAddresses">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProductMedia_Products">
+          <End Role="Products" Type="ZazaModel.Product" Multiplicity="1" />
+          <End Role="ProductMedia" Type="ZazaModel.ProductMedia" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Products">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ProductMedia">
+              <PropertyRef Name="ProductID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ZazaModelStoreContainer" CdmEntityContainer="ZazaEntities">
+          <EntitySetMapping Name="Categories">
+            <EntityTypeMapping TypeName="ZazaModel.Category">
+              <MappingFragment StoreEntitySet="Categories">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="TempName" ColumnName="TempName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DeliveryAddresses">
+            <EntityTypeMapping TypeName="ZazaModel.DeliveryAddress">
+              <MappingFragment StoreEntitySet="DeliveryAddresses">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="Street" ColumnName="Street" />
+                <ScalarProperty Name="PostCode" ColumnName="PostCode" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="StreetNo" ColumnName="StreetNo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OrderDetails">
+            <EntityTypeMapping TypeName="ZazaModel.OrderDetail">
+              <MappingFragment StoreEntitySet="OrderDetails">
+                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
+                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="AddedDate" ColumnName="AddedDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Orders">
+            <EntityTypeMapping TypeName="ZazaModel.Order">
+              <MappingFragment StoreEntitySet="Orders">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="AddedDate" ColumnName="AddedDate" />
+                <ScalarProperty Name="UserConfirmed" ColumnName="UserConfirmed" />
+                <ScalarProperty Name="Deleted" ColumnName="Deleted" />
+                <ScalarProperty Name="ConfirmedPayment" ColumnName="ConfirmedPayment" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProductMedias">
+            <EntityTypeMapping TypeName="ZazaModel.ProductMedia">
+              <MappingFragment StoreEntitySet="ProductMedia">
+                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+                <ScalarProperty Name="SupplierID" ColumnName="SupplierID" />
+                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
+                <ScalarProperty Name="FileName" ColumnName="FileName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Products">
+            <EntityTypeMapping TypeName="ZazaModel.Product">
+              <MappingFragment StoreEntitySet="Products">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="SizeChartID" ColumnName="SizeChartID" />
+                <ScalarProperty Name="AddedDate" ColumnName="AddedDate" />
+                <ScalarProperty Name="AddedBy" ColumnName="AddedBy" />
+                <ScalarProperty Name="Deleted" ColumnName="Deleted" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SizeingCharts">
+            <EntityTypeMapping TypeName="ZazaModel.SizeingChart">
+              <MappingFragment StoreEntitySet="SizeingCharts">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Path" ColumnName="Path" />
+                <ScalarProperty Name="SupplierID" ColumnName="SupplierID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Suppliers">
+            <EntityTypeMapping TypeName="ZazaModel.Supplier">
+              <MappingFragment StoreEntitySet="Suppliers">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Website" ColumnName="Website" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Country" ColumnName="Country" />
+                <ScalarProperty Name="DeliveryFee" ColumnName="DeliveryFee" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SupplierSentOrders">
+            <EntityTypeMapping TypeName="ZazaModel.SupplierSentOrder">
+              <MappingFragment StoreEntitySet="SupplierSentOrder">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
+                <ScalarProperty Name="SentDate" ColumnName="SentDate" />
+                <ScalarProperty Name="EstimatedReceiveDate" ColumnName="EstimatedReceiveDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="ZazaModel.User">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="AddedDate" ColumnName="AddedDate" />
+                <ScalarProperty Name="Deleted" ColumnName="Deleted" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="WhishLists">
+            <EntityTypeMapping TypeName="ZazaModel.WhishList">
+              <MappingFragment StoreEntitySet="WhishLists">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

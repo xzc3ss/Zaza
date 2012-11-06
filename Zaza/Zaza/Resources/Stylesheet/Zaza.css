@@ -205,6 +205,55 @@ a#cart
   overflow: hidden;
 }
 
+
+
+#main-content
+{
+  color: #9A9999;
+  font-family: Arial,Helvetica,sans-serif;
+  font-size: 12px;
+  line-height: 17px;
+}
+
+.login-content
+{
+  overflow: hidden;
+}
+
+  .login-content input[type="text"], .login-content input[type="password"]
+  {
+    width: 200px;
+    height: 25px;
+    border-radius: 5px;
+    margin-bottom:5px;
+  }
+
+  .login-content h2
+  {
+    color: #191919;
+    font-size: 15px;
+    margin-top: 0px;
+    margin-bottom: 5px;
+    text-transform: uppercase;
+    font-weight: normal;
+    line-height: normal;
+    font-family: 'Oswald', sans-serif;
+  }
+
+  .login-content form
+  {
+    width: 350px;
+    margin: 10px;
+    padding: 10px;
+  }
+
+  .login-content li label:first-child
+  {
+    margin-right: 10px;
+    text-align: left;
+    display: block;
+  }
+
 .input-search
 {
   background: url("../Images/inputs.png") no-repeat;
