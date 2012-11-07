@@ -5,7 +5,7 @@ using System.Web;
 
 namespace Helpers
 {
-  enum SortDirection
+  public enum SortDirection
   {
     Ascending, Descending
   }
