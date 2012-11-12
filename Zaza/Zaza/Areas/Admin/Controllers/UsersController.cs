@@ -7,7 +7,7 @@ using Zaza.Classes;
 
 namespace Zaza.Areas.Admin.Controllers
 {
-  [Authorize(Roles = "superuser")]
+
   public class UsersController : ZazaController
   {
     //
@@ -20,7 +20,47 @@ namespace Zaza.Areas.Admin.Controllers
 
     public ActionResult List(int? page, string sort, string sortDir, string firstLetter)
     {
-      //CurrentPageAction  = WebsiteStructure.WebsitePage.
+      CurrentPageAction = WebsiteStructure.WebsitePage.Users;
+        if( string.IsNullOrEmpty(sort))
+        {
+          sort = "AddedDate";
+          sortDir = "Desc";
+           if(HttpContext.Request.Cookies.AllKeys.Contains("UsersSortColumn")&& HttpContext.Request.Cookies.AllKeys.Contains("UsersSortDir"))
+           {
+             var cookie = HttpContext.Request.Cookies["UsersSortColumn"];
+             if (!String.IsNullOrEmpty(cookie.Value))
+             {
+               sort = cookie.Value;
+               cookie = HttpContext.Request.Cookies["UsersSortDir"];
+               sortDir = cookie.Value;
+             }
+           }
+        }
+
+      //var query= FormMethod
+      //translate columnHeaders
+      var columnHeaders = new Dictionary<string, string>();
+      columnHeaders.Add("Name", "Name");
+      columnHeaders.Add("AddedDate", "AddedDate");
+      ViewData["ColumnHeaders"] = columnHeaders;
+      ViewData["Title"] = GenerateTitleFromBreadcrumb(Breadcrumb);
+      // Dim pageNumber As Integer = 1
+    //  If page.HasValue Then pageNumber = page
+        //  ' translate column headers
+        //  Dim columnHeaders As New Dictionary(Of String, String)
+        //  columnHeaders.Add("Name", HttpContext.GetGlobalResourceObject("Common", "Name"))
+        //  columnHeaders.Add("ExportID", HttpContext.GetGlobalResourceObject("Common", "ExportID"))
+        //  columnHeaders.Add("Email", HttpContext.GetGlobalResourceObject("Common", "Email"))
+        //  columnHeaders.Add("AddedDate", HttpContext.GetGlobalResourceObject("Common", "AddedDate"))
+        //  ' other view data
+        //  ViewData("PagerData") = PagerData.BuildPagerData(pageNumber, totalContacts, "pager-goto", "Page", showGoto:=True)
+
+        //  ViewData("ColumnHeaders") = columnHeaders
+        //  ViewData("Title") = GenerateTitleFromBreadcrumb(Breadcrumb)
+
+        //  GetCustomersQueryString = Request.Url.ToString
+        //  ViewData("customersBack") = GetCustomersQueryString
+        //  Return View(query.ToList)
       return View();
     }
 
@@ -42,17 +82,17 @@ namespace Zaza.Areas.Admin.Controllers
     //    customerName = Request.Form("customerName")
     //  End If
 
-    //  If String.IsNullOrEmpty(sort) Then
-    //    sort = "AddedDate"
-    //    sortDir = "Desc"
-    //    If HttpContext.Request.Cookies.AllKeys.Contains("CustomersSortColumn") AndAlso HttpContext.Request.Cookies.AllKeys.Contains("CustomersSortDir") Then
-    //      Dim cookie As HttpCookie = HttpContext.Request.Cookies("CustomersSortColumn")
-    //      If Not String.IsNullOrEmpty(cookie.Value) Then
-    //        sort = cookie.Value
-    //        cookie = HttpContext.Request.Cookies("CustomersSortDir")
-    //        sortDir = cookie.Value
-    //      End If
+    //If String.IsNullOrEmpty(sort) Then
+    //  sort = "AddedDate"
+    //  sortDir = "Desc"
+    //  If HttpContext.Request.Cookies.AllKeys.Contains("CustomersSortColumn") AndAlso HttpContext.Request.Cookies.AllKeys.Contains("CustomersSortDir") Then
+    //    Dim cookie As HttpCookie = HttpContext.Request.Cookies("CustomersSortColumn")
+    //    If Not String.IsNullOrEmpty(cookie.Value) Then
+    //      sort = cookie.Value
+    //      cookie = HttpContext.Request.Cookies("CustomersSortDir")
+    //      sortDir = cookie.Value
     //    End If
+    //  End If
     //    Dim rvd As RouteValueDictionary = New RouteValueDictionary()
     //    If providerID <> 0 Then
     //      rvd.Add("providerID", providerID)
