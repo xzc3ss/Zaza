@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="ZazaModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+    <Schema Namespace="ZazaModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
         <EntityContainer Name="ZazaModelStoreContainer">
           <EntitySet Name="Categories" EntityType="ZazaModel.Store.Categories" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="DeliveryAddresses" EntityType="ZazaModel.Store.DeliveryAddresses" store:Type="Tables" Schema="dbo" />
@@ -202,8 +202,7 @@
       <EntityType Name="WhishlistDetails">
         <Property Name="WhishlistID" Type="int" />
       </EntityType>-->
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="ZazaModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
@@ -220,11 +219,11 @@
           <EntitySet Name="Users" EntityType="ZazaModel.User" />
           <EntitySet Name="WhishLists" EntityType="ZazaModel.WhishList" />
           <AssociationSet Name="FK_DeliveryAddresses_DeliveryAddresses" Association="ZazaModel.FK_DeliveryAddresses_DeliveryAddresses">
-            <End Role="Users" EntitySet="Users" />
-            <End Role="DeliveryAddresses" EntitySet="DeliveryAddresses" />
+            <End Role="User" EntitySet="Users" />
+            <End Role="DeliveryAddress" EntitySet="DeliveryAddresses" />
           </AssociationSet>
           <AssociationSet Name="FK_ProductMedia_Products" Association="ZazaModel.FK_ProductMedia_Products">
-            <End Role="Products" EntitySet="Products" />
+            <End Role="Product" EntitySet="Products" />
             <End Role="ProductMedia" EntitySet="ProductMedias" />
           </AssociationSet>
         </EntityContainer>
@@ -232,138 +231,138 @@
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
-          <Property Name="TempName" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Type="Int32" Name="ID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="TempName" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="DeliveryAddress">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="UserID" Type="Int32" />
-          <Property Name="Street" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
-          <Property Name="PostCode" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
-          <Property Name="City" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
-          <Property Name="StreetNo" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
-          <NavigationProperty Name="User" Relationship="ZazaModel.FK_DeliveryAddresses_DeliveryAddresses" FromRole="DeliveryAddresses" ToRole="Users" />
+          <Property Type="Int32" Name="ID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="UserID" />
+          <Property Type="String" Name="Street" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="PostCode" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="City" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="StreetNo" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="User" Relationship="ZazaModel.FK_DeliveryAddresses_DeliveryAddresses" FromRole="DeliveryAddress" ToRole="User" />
         </EntityType>
         <EntityType Name="OrderDetail">
           <Key>
             <PropertyRef Name="ProductID" />
             <PropertyRef Name="Quantity" />
           </Key>
-          <Property Name="OrderID" Type="Int32" />
-          <Property Name="ProductID" Type="Int32" Nullable="false" />
-          <Property Name="Quantity" Type="Int32" Nullable="false" />
-          <Property Name="AddedDate" Type="DateTime" Precision="0" />
+          <Property Type="Int32" Name="OrderID" />
+          <Property Type="Int32" Name="ProductID" Nullable="false" />
+          <Property Type="Int32" Name="Quantity" Nullable="false" />
+          <Property Type="DateTime" Name="AddedDate" Precision="0" />
         </EntityType>
         <EntityType Name="Order">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="UserID" Type="Int32" Nullable="false" />
-          <Property Name="AddedDate" Type="DateTime" Precision="0" />
-          <Property Name="UserConfirmed" Type="Boolean" />
-          <Property Name="Deleted" Type="Boolean" />
-          <Property Name="ConfirmedPayment" Type="Boolean" />
+          <Property Type="Int32" Name="ID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="UserID" Nullable="false" />
+          <Property Type="DateTime" Name="AddedDate" Precision="0" />
+          <Property Type="Boolean" Name="UserConfirmed" />
+          <Property Type="Boolean" Name="Deleted" />
+          <Property Type="Boolean" Name="ConfirmedPayment" />
         </EntityType>
         <EntityType Name="ProductMedia">
           <Key>
             <PropertyRef Name="ProductID" />
           </Key>
-          <Property Name="ProductID" Type="Int32" Nullable="false" />
-          <Property Name="SupplierID" Type="Int32" />
-          <Property Name="OrderID" Type="Int32" />
-          <Property Name="FileName" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
-          <NavigationProperty Name="Product" Relationship="ZazaModel.FK_ProductMedia_Products" FromRole="ProductMedia" ToRole="Products" />
+          <Property Type="Int32" Name="ProductID" Nullable="false" />
+          <Property Type="Int32" Name="SupplierID" />
+          <Property Type="Int32" Name="OrderID" />
+          <Property Type="String" Name="FileName" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Product" Relationship="ZazaModel.FK_ProductMedia_Products" FromRole="ProductMedia" ToRole="Product" />
         </EntityType>
         <EntityType Name="Product">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Code" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
-          <Property Name="CategoryID" Type="Int32" Nullable="false" />
-          <Property Name="Price" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
-          <Property Name="Title" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
-          <Property Name="Description" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
-          <Property Name="SizeChartID" Type="Int32" Nullable="false" />
-          <Property Name="AddedDate" Type="DateTime" Precision="0" />
-          <Property Name="AddedBy" Type="Int32" />
-          <Property Name="Deleted" Type="Boolean" />
-          <Property Name="Active" Type="Boolean" />
-          <NavigationProperty Name="ProductMedia" Relationship="ZazaModel.FK_ProductMedia_Products" FromRole="Products" ToRole="ProductMedia" />
+          <Property Type="Int32" Name="ID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Code" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="CategoryID" Nullable="false" />
+          <Property Type="Decimal" Name="Price" Nullable="false" Precision="18" Scale="0" />
+          <Property Type="String" Name="Title" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Description" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="SizeChartID" Nullable="false" />
+          <Property Type="DateTime" Name="AddedDate" Precision="0" />
+          <Property Type="Int32" Name="AddedBy" />
+          <Property Type="Boolean" Name="Deleted" />
+          <Property Type="Boolean" Name="Active" />
+          <NavigationProperty Name="ProductMedia" Relationship="ZazaModel.FK_ProductMedia_Products" FromRole="Product" ToRole="ProductMedia" />
         </EntityType>
         <EntityType Name="SizeingChart">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Path" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
-          <Property Name="SupplierID" Type="Int32" />
+          <Property Type="Int32" Name="ID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Path" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="SupplierID" />
         </EntityType>
         <EntityType Name="Supplier">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
-          <Property Name="Website" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
-          <Property Name="Email" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
-          <Property Name="Phone" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
-          <Property Name="Country" Type="Binary" MaxLength="50" FixedLength="false" />
-          <Property Name="DeliveryFee" Type="Decimal" Precision="18" Scale="0" />
+          <Property Type="Int32" Name="ID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Website" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Email" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Phone" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="Binary" Name="Country" MaxLength="50" FixedLength="false" />
+          <Property Type="Decimal" Name="DeliveryFee" Precision="18" Scale="0" />
         </EntityType>
         <EntityType Name="SupplierSentOrder">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="OrderID" Type="Int32" Nullable="false" />
-          <Property Name="SentDate" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="EstimatedReceiveDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Type="Int32" Name="ID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="OrderID" Nullable="false" />
+          <Property Type="DateTime" Name="SentDate" Nullable="false" Precision="0" />
+          <Property Type="DateTime" Name="EstimatedReceiveDate" Nullable="false" Precision="0" />
         </EntityType>
         <EntityType Name="User">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="UserName" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
-          <Property Name="Email" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
-          <Property Name="Password" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
-          <Property Name="FirstName" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
-          <Property Name="LastName" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
-          <Property Name="AddedDate" Type="DateTime" Precision="0" />
-          <Property Name="Deleted" Type="Boolean" />
-          <Property Name="CreatedDate" Type="DateTime" Precision="0" />
-          <NavigationProperty Name="DeliveryAddresses" Relationship="ZazaModel.FK_DeliveryAddresses_DeliveryAddresses" FromRole="Users" ToRole="DeliveryAddresses" />
+          <Property Type="Int32" Name="ID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="UserName" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Email" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Password" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="FirstName" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="LastName" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="AddedDate" Precision="0" />
+          <Property Type="Boolean" Name="Deleted" />
+          <Property Type="DateTime" Name="CreatedDate" Precision="0" />
+          <NavigationProperty Name="DeliveryAddresses" Relationship="ZazaModel.FK_DeliveryAddresses_DeliveryAddresses" FromRole="User" ToRole="DeliveryAddress" />
         </EntityType>
         <EntityType Name="WhishList">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Type="Int32" Name="ID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="UserID" Nullable="false" />
         </EntityType>
         <Association Name="FK_DeliveryAddresses_DeliveryAddresses">
-          <End Role="Users" Type="ZazaModel.User" Multiplicity="0..1" />
-          <End Role="DeliveryAddresses" Type="ZazaModel.DeliveryAddress" Multiplicity="*" />
+          <End Type="ZazaModel.User" Role="User" Multiplicity="0..1" />
+          <End Type="ZazaModel.DeliveryAddress" Role="DeliveryAddress" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Users">
+            <Principal Role="User">
               <PropertyRef Name="ID" />
             </Principal>
-            <Dependent Role="DeliveryAddresses">
+            <Dependent Role="DeliveryAddress">
               <PropertyRef Name="UserID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_ProductMedia_Products">
-          <End Role="Products" Type="ZazaModel.Product" Multiplicity="1" />
-          <End Role="ProductMedia" Type="ZazaModel.ProductMedia" Multiplicity="0..1" />
+          <End Type="ZazaModel.Product" Role="Product" Multiplicity="1" />
+          <End Type="ZazaModel.ProductMedia" Role="ProductMedia" Multiplicity="0..1" />
           <ReferentialConstraint>
-            <Principal Role="Products">
+            <Principal Role="Product">
               <PropertyRef Name="ID" />
             </Principal>
             <Dependent Role="ProductMedia">
@@ -371,7 +370,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -380,125 +379,125 @@
           <EntitySetMapping Name="Categories">
             <EntityTypeMapping TypeName="ZazaModel.Category">
               <MappingFragment StoreEntitySet="Categories">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="TempName" ColumnName="TempName" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="DeliveryAddresses">
             <EntityTypeMapping TypeName="ZazaModel.DeliveryAddress">
               <MappingFragment StoreEntitySet="DeliveryAddresses">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="UserID" ColumnName="UserID" />
-                <ScalarProperty Name="Street" ColumnName="Street" />
-                <ScalarProperty Name="PostCode" ColumnName="PostCode" />
-                <ScalarProperty Name="City" ColumnName="City" />
                 <ScalarProperty Name="StreetNo" ColumnName="StreetNo" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="PostCode" ColumnName="PostCode" />
+                <ScalarProperty Name="Street" ColumnName="Street" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="OrderDetails">
             <EntityTypeMapping TypeName="ZazaModel.OrderDetail">
               <MappingFragment StoreEntitySet="OrderDetails">
-                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
-                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
-                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
                 <ScalarProperty Name="AddedDate" ColumnName="AddedDate" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Orders">
             <EntityTypeMapping TypeName="ZazaModel.Order">
               <MappingFragment StoreEntitySet="Orders">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="UserID" ColumnName="UserID" />
-                <ScalarProperty Name="AddedDate" ColumnName="AddedDate" />
-                <ScalarProperty Name="UserConfirmed" ColumnName="UserConfirmed" />
-                <ScalarProperty Name="Deleted" ColumnName="Deleted" />
                 <ScalarProperty Name="ConfirmedPayment" ColumnName="ConfirmedPayment" />
+                <ScalarProperty Name="Deleted" ColumnName="Deleted" />
+                <ScalarProperty Name="UserConfirmed" ColumnName="UserConfirmed" />
+                <ScalarProperty Name="AddedDate" ColumnName="AddedDate" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="ProductMedias">
             <EntityTypeMapping TypeName="ZazaModel.ProductMedia">
               <MappingFragment StoreEntitySet="ProductMedia">
-                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
-                <ScalarProperty Name="SupplierID" ColumnName="SupplierID" />
-                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
                 <ScalarProperty Name="FileName" ColumnName="FileName" />
+                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
+                <ScalarProperty Name="SupplierID" ColumnName="SupplierID" />
+                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Products">
             <EntityTypeMapping TypeName="ZazaModel.Product">
               <MappingFragment StoreEntitySet="Products">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="Code" ColumnName="Code" />
-                <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
-                <ScalarProperty Name="Price" ColumnName="Price" />
-                <ScalarProperty Name="Title" ColumnName="Title" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="SizeChartID" ColumnName="SizeChartID" />
-                <ScalarProperty Name="AddedDate" ColumnName="AddedDate" />
-                <ScalarProperty Name="AddedBy" ColumnName="AddedBy" />
-                <ScalarProperty Name="Deleted" ColumnName="Deleted" />
                 <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="Deleted" ColumnName="Deleted" />
+                <ScalarProperty Name="AddedBy" ColumnName="AddedBy" />
+                <ScalarProperty Name="AddedDate" ColumnName="AddedDate" />
+                <ScalarProperty Name="SizeChartID" ColumnName="SizeChartID" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="SizeingCharts">
             <EntityTypeMapping TypeName="ZazaModel.SizeingChart">
               <MappingFragment StoreEntitySet="SizeingCharts">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="Path" ColumnName="Path" />
                 <ScalarProperty Name="SupplierID" ColumnName="SupplierID" />
+                <ScalarProperty Name="Path" ColumnName="Path" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Suppliers">
             <EntityTypeMapping TypeName="ZazaModel.Supplier">
               <MappingFragment StoreEntitySet="Suppliers">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Website" ColumnName="Website" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="Phone" ColumnName="Phone" />
-                <ScalarProperty Name="Country" ColumnName="Country" />
                 <ScalarProperty Name="DeliveryFee" ColumnName="DeliveryFee" />
+                <ScalarProperty Name="Country" ColumnName="Country" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Website" ColumnName="Website" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="SupplierSentOrders">
             <EntityTypeMapping TypeName="ZazaModel.SupplierSentOrder">
               <MappingFragment StoreEntitySet="SupplierSentOrder">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
-                <ScalarProperty Name="SentDate" ColumnName="SentDate" />
                 <ScalarProperty Name="EstimatedReceiveDate" ColumnName="EstimatedReceiveDate" />
+                <ScalarProperty Name="SentDate" ColumnName="SentDate" />
+                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Users">
             <EntityTypeMapping TypeName="ZazaModel.User">
               <MappingFragment StoreEntitySet="Users">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="UserName" ColumnName="UserName" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="Password" ColumnName="Password" />
-                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
-                <ScalarProperty Name="LastName" ColumnName="LastName" />
-                <ScalarProperty Name="AddedDate" ColumnName="AddedDate" />
-                <ScalarProperty Name="Deleted" ColumnName="Deleted" />
                 <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="Deleted" ColumnName="Deleted" />
+                <ScalarProperty Name="AddedDate" ColumnName="AddedDate" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="WhishLists">
             <EntityTypeMapping TypeName="ZazaModel.WhishList">
               <MappingFragment StoreEntitySet="WhishLists">
-                <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

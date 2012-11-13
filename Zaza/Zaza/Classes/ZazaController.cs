@@ -69,14 +69,13 @@ namespace Zaza.Classes
 			string myPageTitle = "Zaza";
 			foreach (var item in currentBreadcrumb)
 			{
-				//if (item.WebsitePage!=WebsiteStructure.WebsitePage.Home)
-				//{
-				//	myPageTitle += item.Title;
-				//	myPageTitle += " » ";
-
-				//}
+				if (item.WebsitePage!=WebsiteStructure.WebsitePage.Users)
+				{
+				  myPageTitle += item.Title;
+				}
+			
 			}
-			return myPageTitle;
+			return myPageTitle.Remove(myPageTitle.Length-3);
 		}
 
 	}

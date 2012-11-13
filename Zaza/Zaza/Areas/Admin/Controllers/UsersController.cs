@@ -15,53 +15,62 @@ namespace Zaza.Areas.Admin.Controllers
 
     public ActionResult Index()
     {
-      return View();
+
+      return RedirectToAction("List");
     }
 
     public ActionResult List(int? page, string sort, string sortDir, string firstLetter)
     {
       CurrentPageAction = WebsiteStructure.WebsitePage.Users;
-        if( string.IsNullOrEmpty(sort))
+      if (string.IsNullOrEmpty(sort))
+      {
+        sort = "AddedDate";
+        sortDir = "Desc";
+        if (HttpContext.Request.Cookies.AllKeys.Contains("UsersSortColumn") && HttpContext.Request.Cookies.AllKeys.Contains("UsersSortDir"))
         {
-          sort = "AddedDate";
-          sortDir = "Desc";
-           if(HttpContext.Request.Cookies.AllKeys.Contains("UsersSortColumn")&& HttpContext.Request.Cookies.AllKeys.Contains("UsersSortDir"))
-           {
-             var cookie = HttpContext.Request.Cookies["UsersSortColumn"];
-             if (!String.IsNullOrEmpty(cookie.Value))
-             {
-               sort = cookie.Value;
-               cookie = HttpContext.Request.Cookies["UsersSortDir"];
-               sortDir = cookie.Value;
-             }
-           }
+          var cookie = HttpContext.Request.Cookies["UsersSortColumn"];
+          if (!String.IsNullOrEmpty(cookie.Value))
+          {
+            sort = cookie.Value;
+            cookie = HttpContext.Request.Cookies["UsersSortDir"];
+            if (cookie != null) sortDir = cookie.Value;
+          }
         }
+      }
 
+      var datacontext = new Zaza.Entities.ZazaEntities();
+      var query = (from i in datacontext.Users
+                   select new
+                   {
+                     i.ID, Name=i.FirstName
+                   });
+      //  Dim query = From c In dc.Customers Where Not c.Deleted AndAlso _
+      //              c.ProviderID IsNot Nothing AndAlso _
       //var query= FormMethod
       //translate columnHeaders
       var columnHeaders = new Dictionary<string, string>();
       columnHeaders.Add("Name", "Name");
-      columnHeaders.Add("AddedDate", "AddedDate");
+      //columnHeaders.Add("AddedDate", "AddedDate");
       ViewData["ColumnHeaders"] = columnHeaders;
-      ViewData["Title"] = GenerateTitleFromBreadcrumb(Breadcrumb);
+      //ViewData["Title"] = GenerateTitleFromBreadcrumb(Breadcrumb);
       // Dim pageNumber As Integer = 1
-    //  If page.HasValue Then pageNumber = page
-        //  ' translate column headers
-        //  Dim columnHeaders As New Dictionary(Of String, String)
-        //  columnHeaders.Add("Name", HttpContext.GetGlobalResourceObject("Common", "Name"))
-        //  columnHeaders.Add("ExportID", HttpContext.GetGlobalResourceObject("Common", "ExportID"))
-        //  columnHeaders.Add("Email", HttpContext.GetGlobalResourceObject("Common", "Email"))
-        //  columnHeaders.Add("AddedDate", HttpContext.GetGlobalResourceObject("Common", "AddedDate"))
-        //  ' other view data
-        //  ViewData("PagerData") = PagerData.BuildPagerData(pageNumber, totalContacts, "pager-goto", "Page", showGoto:=True)
+      //  If page.HasValue Then pageNumber = page
+      //  ' translate column headers
+      //  Dim columnHeaders As New Dictionary(Of String, String)
+      //  columnHeaders.Add("Name", HttpContext.GetGlobalResourceObject("Common", "Name"))
+      //  columnHeaders.Add("ExportID", HttpContext.GetGlobalResourceObject("Common", "ExportID"))
+      //  columnHeaders.Add("Email", HttpContext.GetGlobalResourceObject("Common", "Email"))
+      //  columnHeaders.Add("AddedDate", HttpContext.GetGlobalResourceObject("Common", "AddedDate"))
+      //  ' other view data
+      //  ViewData("PagerData") = PagerData.BuildPagerData(pageNumber, totalContacts, "pager-goto", "Page", showGoto:=True)
 
-        //  ViewData("ColumnHeaders") = columnHeaders
-        //  ViewData("Title") = GenerateTitleFromBreadcrumb(Breadcrumb)
+      //  ViewData("ColumnHeaders") = columnHeaders
+      //  ViewData("Title") = GenerateTitleFromBreadcrumb(Breadcrumb)
 
-        //  GetCustomersQueryString = Request.Url.ToString
-        //  ViewData("customersBack") = GetCustomersQueryString
-        //  Return View(query.ToList)
-      return View();
+      //  GetCustomersQueryString = Request.Url.ToString
+      //  ViewData("customersBack") = GetCustomersQueryString
+      //  Return View(query.ToList)
+      return View(query.ToList());
     }
 
     //Function List(ByVal page As Nullable(Of Integer), ByVal sort As String, ByVal sortDir As String, ByVal firstLetter As String, ByVal province As String, ByVal city As String, ByVal customerName As String, Optional ByVal providerID As Integer = 0) As ActionResult
