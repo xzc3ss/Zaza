@@ -41,8 +41,8 @@ namespace Zaza.Areas.Admin.Controllers
       var datacontext = new Zaza.Entities.ZazaEntities();
       var query = (from i in datacontext.Users
                    select new
-                   {
-                     i.ID, Name=i.FirstName
+                   { 
+                     Name=i.FirstName
                    });
       //  Dim query = From c In dc.Customers Where Not c.Deleted AndAlso _
       //              c.ProviderID IsNot Nothing AndAlso _

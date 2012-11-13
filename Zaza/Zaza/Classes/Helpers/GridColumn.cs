@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Helpers
 {
@@ -22,10 +23,15 @@ namespace Helpers
       set;
     }
 
-    public Func<Object, Object> Format; 
-   
+    public Func<Object, Object> Format
+    {
+      get;
+      set;
+    }
 
- 
+
+
+
     public string Style
     {
       get;
@@ -39,4 +45,5 @@ namespace Helpers
 
 
   }
+
 }

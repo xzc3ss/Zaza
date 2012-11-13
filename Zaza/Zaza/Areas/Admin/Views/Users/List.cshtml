@@ -5,29 +5,8 @@
 }
 
 <h2>List</h2>
-@Zaza.Grid(source: Model, columns: (System.Object item) => (MvcHtmlString.Create(Html.ActionLink(HttpContext.GetGlobalResourceObject("Buttons", "Edit").ToString, "Edit", new { id = item.ID }).ToHtmlString)),
-tableStyle: null, emptyTemplateText: null, 
-headerStyle: null, 
-rowStyle: null,
-alternatingRowStyle: null,
-htmlAttributes: null, 
-fieldNamePrefix: null, 
-sortColumn: null, defaultSort: null,
-columnHeaders: null,
-displayHeader: false, 
-canSort: false, sortFieldName: null,
-sortDirectionFieldName: null, pageFieldName: null)
 
-@*@Zaza.Grid(source:Model, defaultSort:"", emptyTemplateText:"EmptyTemplate", 
-columns:(System.Object item) => (MvcHtmlString.Create(Html.ActionLink(HttpContext.GetGlobalResourceObject("Buttons", "Edit").ToString, "Edit", new { id = item.ID }).ToHtmlString)),
-Zaza.GridColumn("Name", "Name", null,"name")
 
-Zaza.Grid(source:=Model, defaultSort:"AddedDate", columnHeaders: ViewData("ColumnHeaders"),
- emptyTemplateText:"EmptyGrid",
- columns:{Zaza.GridColumn("ID", "", Func<item> (MvcHtmlString.Create(Html.ActionLink(HttpContext.GetGlobalResourceObject("Buttons", "Edit").ToString, "Edit", New<> With {.id = item.ID}).ToHtmlString)), "select"),
- Zaza.GridColumn("Name", HttpContext.GetGlobalResourceObject("Common", "Name"), null, "name"),
- Zaza.GridColumn("Email", HttpContext.GetGlobalResourceObject("Common", "Email"), null, "email"),
- Zaza.GridColumn("Exported", HttpContext.GetGlobalResourceObject("Common", "Exported"), Function(item) (MvcHtmlString.Create(Html.CheckBox("Exported", (Boolean)(item.Exported, Boolean), New With {.id = "", .class = "itemexport"}).ToHtmlString)), "", False),
- Zaza.GridColumn("ItemsCount", HttpContext.GetGlobalResourceObject("Common", "ItemsCount"), null, "adno"),
- Zaza.GridColumn("AddedDate", HttpContext.GetGlobalResourceObject("Common", "AddedDate"), item=>item (DateTime.Parse(item.AddedDate.ToString).ToString("dd/MM/yyyy")))
- })*@
+@Zaza.Grid(Model, new[] {Zaza.GridColumn("Name", "Name", null, "Name")}, tableStyle: null, emptyTemplateText: null, headerStyle: null, rowStyle: null, alternatingRowStyle: null, htmlAttributes: null, fieldNamePrefix: null, sortColumn: null, defaultSort: null, columnHeaders: null, displayHeader: false, canSort: false, sortFieldName: null, sortDirectionFieldName: null, pageFieldName: null)
+
+

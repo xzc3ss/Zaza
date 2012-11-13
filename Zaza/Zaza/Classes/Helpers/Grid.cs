@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Web.Mvc;
 using Helpers;
+using Zaza;
 using Zaza.Classes;
-
+using Zaza.Classes.Helpers;
+using System.Reflection;
 namespace Helpers
 {
   public partial class Zaza
@@ -33,8 +35,6 @@ namespace Helpers
                        sortFieldName, sortDirectionFieldName, pageFieldName);
       return g.GetHtml();
     }
-
-
 
 
     public static GridColumn GridColumn(string columnName, string header, Func<Object, Object> format = null, string style = null, Boolean canSort = true, string headerStyle = null)

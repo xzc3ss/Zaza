@@ -4,20 +4,20 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="5f9a0dc3c25b45828cc75f8b5bb580f9" Name="Diagram1">
-        <EntityTypeShape EntityType="ZazaModel.Category" Width="1.5" PointX="0.040642803553791157" PointY="29.886164142697194" />
-        <EntityTypeShape EntityType="ZazaModel.DeliveryAddress" Width="1.5" PointX="0.065322428972144811" PointY="19.967751273870352" />
-        <EntityTypeShape EntityType="ZazaModel.OrderDetail" Width="1.5" PointX="1.5404481205811949" PointY="30.770925431871287" />
-        <EntityTypeShape EntityType="ZazaModel.Order" Width="1.5" PointX="5.0599869960267032" PointY="3.1644131555987585" />
-        <EntityTypeShape EntityType="ZazaModel.ProductMedia" Width="1.5" PointX="0.75" PointY="2.375" />
-        <EntityTypeShape EntityType="ZazaModel.Product" Width="1.5" PointX="10.193120245911704" PointY="13.903889528430947" />
-        <EntityTypeShape EntityType="ZazaModel.SizeingChart" Width="1.5" PointX="8.375" PointY="4.5" />
-        <EntityTypeShape EntityType="ZazaModel.Supplier" Width="1.5" PointX="3.4147497412817316" PointY="30.298896356624969" />
-        <EntityTypeShape EntityType="ZazaModel.SupplierSentOrder" Width="1.5" PointX="10.627772284032671" PointY="30.965895875806872" />
-        <EntityTypeShape EntityType="ZazaModel.User" Width="1.5" PointX="7.0701515614381769" PointY="17.829745584088258" />
-        <EntityTypeShape EntityType="ZazaModel.WhishList" Width="1.5" PointX="4.21181056285827" PointY="20.540558675555772" />
-        <AssociationConnector Association="ZazaModel.FK_DeliveryAddresses_DeliveryAddresses" />
-        <AssociationConnector Association="ZazaModel.FK_ProductMedia_Products" />
+      <Diagram DiagramId="f2765e997c4e4698be3155758a81dfbc" Name="Diagram1">
+        <EntityTypeShape EntityType="Entities.Category" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Entities.DeliveryAddress" Width="1.5" PointX="3" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Entities.OrderDetail" Width="1.5" PointX="5.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Entities.Order" Width="1.5" PointX="5.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Entities.ProductMedia" Width="1.5" PointX="3" PointY="5.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Entities.Product" Width="1.5" PointX="0.75" PointY="5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Entities.SizeingChart" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Entities.Supplier" Width="1.5" PointX="7.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Entities.SupplierSentOrder" Width="1.5" PointX="7.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Entities.User" Width="1.5" PointX="0.75" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="Entities.WhishList" Width="1.5" PointX="2.75" PointY="8.75" IsExpanded="true" />
+        <AssociationConnector Association="Entities.FK_DeliveryAddresses_DeliveryAddresses" ManuallyRouted="false" />
+        <AssociationConnector Association="Entities.FK_ProductMedia_Products" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

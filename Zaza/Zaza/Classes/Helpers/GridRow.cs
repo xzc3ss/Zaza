@@ -5,6 +5,7 @@ using System.Dynamic;
 using System.Linq;
 using System.Reflection;
 using System.Globalization;
+using Zaza;
 using Zaza.Classes;
 namespace Helpers
 {
@@ -33,7 +34,7 @@ namespace Helpers
       }
     }
 
-    public global::Zaza.Classes.Grid Grid
+    public global::Zaza.Grid Grid
     {
       get
       {
@@ -45,7 +46,7 @@ namespace Helpers
 
     #region " Constructor "
 
-    public GridRow(global::Zaza.Classes.Grid grid, object value, int rowIndex)
+    public GridRow(global::Zaza.Grid grid, object value, int rowIndex)
     {
       this._grid = grid;
       this._value = value;
@@ -75,7 +76,7 @@ namespace Helpers
     {
       if (_values == null)
       {
-        _values = _grid.ColumnNames.Select((System.Object c) => Grid.GetDynamicMember(this, (string)c));
+        _values = _grid.ColumnNames.Select((System.Object c) => Grid.GetDynamicMember(this, (string) c));
       }
       return _values.GetEnumerator();
     }
@@ -88,6 +89,39 @@ namespace Helpers
     {
       return GetEnumerator1();
     }
+
+    //public bool TryGetMember(GetMemberBinder binder, ref object result)
+    //{
+    //  result = null;
+    //  if (!String.IsNullOrEmpty(binder.Name))
+    //  {
+    //    if (binder.Name == "ROW")
+    //    {
+    //      // rename?
+    //      result = _rowIndex;
+    //      return true;
+    //    }
+    //    if (_dynamic != null)
+    //    {
+    //      return _dynamic.TryGetMember(binder, out result);
+    //    }
+
+    //    // support '.' for navigation properties
+    //    object obj = _value;
+    //    string[] names = binder.Name.Split('.');
+    //    for (int i = 0; i <= names.Length - 1; i++)
+    //    {
+    //      if ((obj == null) || !TryGetMember(obj, names[i], ref result))
+    //      {
+    //        result = null;
+    //        return false;
+    //      }
+    //      obj = result;
+    //    }
+    //    return true;
+    //  }
+    //  return false;
+    //}
 
     public bool TryGetMember(GetMemberBinder binder, ref object result)
     {
@@ -122,8 +156,6 @@ namespace Helpers
       return false;
     }
 
-  
-
     public override string ToString()
     {
       return _value.ToString();
@@ -140,7 +172,6 @@ namespace Helpers
       result = null;
       return false;
     }
-
     #endregion
 
   }

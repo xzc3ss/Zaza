@@ -12,7 +12,7 @@ using Helpers;
 using System.Linq;
 using Zaza.Classes.Helpers;
 
-namespace Zaza.Classes
+namespace Zaza
 {
   public class Grid
   {
