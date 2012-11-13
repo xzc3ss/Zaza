@@ -1,12 +1,20 @@
 ﻿@using System.Activities.Expressions
+@using CONCENTRA.RED.AUTNET.PRESENTATION
 @using Helpers;
 @{
   ViewBag.Title = "List";
 }
-
+@model List<Zaza.Entities.User>
 <h2>List</h2>
 
 
-@Zaza.Grid(Model, new[] {Zaza.GridColumn("Name", "Name", null, "Name")}, tableStyle: null, emptyTemplateText: null, headerStyle: null, rowStyle: null, alternatingRowStyle: null, htmlAttributes: null, fieldNamePrefix: null, sortColumn: null, defaultSort: null, columnHeaders: null, displayHeader: false, canSort: false, sortFieldName: null, sortDirectionFieldName: null, pageFieldName: null)
-
-
+@AuteursGrid.Grid(source: Model,
+        defaultSort: "Description",
+             emptyTemplateText: "llaa",
+               alternatingRowStyle: "gridAlternateItemBlueUnclickable",
+               rowStyle: "gridItemBlueUnclickable",
+             tableStyle: "gridClass",
+             headerStyle: "gridHeaderBlue",
+             canSort: true,
+                           columns: new Helpers.GridColumn[] {
+                                                new Helpers.GridColumn{ ColumnName="FirstName",Header="FirstName", CanSort=true}})

@@ -179,9 +179,7 @@
     <Compile Include="Classes\Grid.cs" />
     <Compile Include="Classes\Helpers\FirstLetterFilter.cs" />
     <Compile Include="Classes\Helpers\Grid.cs" />
-    <Compile Include="Classes\Helpers\GridColumn.cs" />
     <Compile Include="Classes\Helpers\GridRow.cs" />
-    <Compile Include="Classes\Helpers\SortDirection.cs" />
     <Compile Include="Controllers\ShoppingCartController.cs" />
     <Compile Include="Core\Core.cs" />
     <Compile Include="Classes\WebsiteStructure.cs" />

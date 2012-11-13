@@ -1,28 +1,35 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Dynamic;
 using System.Linq;
+using System.Web;
+using System.Dynamic;
 using System.Reflection;
 using System.Globalization;
-using Zaza;
-using Zaza.Classes;
+
 namespace Helpers
 {
+  public enum SortDirection
+  {
+    Ascending,
+    Descending
+  }
+
+  public enum ActionMode
+  {
+    AddNew,
+    Edit,
+    View,
+    Print
+  }
+
   public class GridRow : DynamicObject, IEnumerable<object>
   {
-
-    #region " Members "
-
-
     private const BindingFlags BindFlags = BindingFlags.Public | BindingFlags.Instance | BindingFlags.Static | BindingFlags.IgnoreCase;
-    private Grid _grid;
-    private DynamicObject _dynamic;
+    private CONCENTRA.RED.AUTNET.PRESENTATION.Grid _grid;
     private int _rowIndex;
     private object _value;
-
     private IEnumerable<object> _values;
-    #endregion
 
     #region " Properties "
 
@@ -34,7 +41,7 @@ namespace Helpers
       }
     }
 
-    public global::Zaza.Grid Grid
+    public CONCENTRA.RED.AUTNET.PRESENTATION.Grid Grid
     {
       get
       {
@@ -46,7 +53,7 @@ namespace Helpers
 
     #region " Constructor "
 
-    public GridRow(global::Zaza.Grid grid, object value, int rowIndex)
+    public GridRow(CONCENTRA.RED.AUTNET.PRESENTATION.Grid grid, object value, int rowIndex)
     {
       this._grid = grid;
       this._value = value;
@@ -64,8 +71,9 @@ namespace Helpers
       {
         throw new ArgumentException("Argument cannot be null", "name");
       }
-      object value = null;
-      if (!Grid.TryGetDynamicMember(this, name, ref value))
+      object value;
+
+      if (!CONCENTRA.RED.AUTNET.PRESENTATION.Grid.TryGetDynamicMember(this, name, out value))
       {
         throw new InvalidOperationException(string.Format(CultureInfo.CurrentCulture, "Column {0} was not found", name));
       }
@@ -76,7 +84,7 @@ namespace Helpers
     {
       if (_values == null)
       {
-        _values = _grid.ColumnNames.Select((System.Object c) => Grid.GetDynamicMember(this, (string) c));
+        _values = _grid.ColumnNames.Select(c => CONCENTRA.RED.AUTNET.PRESENTATION.Grid.GetDynamicMember(this, c));
       }
       return _values.GetEnumerator();
     }
@@ -85,45 +93,13 @@ namespace Helpers
     {
       return GetEnumerator();
     }
+
     IEnumerator System.Collections.IEnumerable.GetEnumerator()
     {
       return GetEnumerator1();
     }
 
-    //public bool TryGetMember(GetMemberBinder binder, ref object result)
-    //{
-    //  result = null;
-    //  if (!String.IsNullOrEmpty(binder.Name))
-    //  {
-    //    if (binder.Name == "ROW")
-    //    {
-    //      // rename?
-    //      result = _rowIndex;
-    //      return true;
-    //    }
-    //    if (_dynamic != null)
-    //    {
-    //      return _dynamic.TryGetMember(binder, out result);
-    //    }
-
-    //    // support '.' for navigation properties
-    //    object obj = _value;
-    //    string[] names = binder.Name.Split('.');
-    //    for (int i = 0; i <= names.Length - 1; i++)
-    //    {
-    //      if ((obj == null) || !TryGetMember(obj, names[i], ref result))
-    //      {
-    //        result = null;
-    //        return false;
-    //      }
-    //      obj = result;
-    //    }
-    //    return true;
-    //  }
-    //  return false;
-    //}
-
-    public bool TryGetMember(GetMemberBinder binder, ref object result)
+    public override bool TryGetMember(GetMemberBinder binder, out object result)
     {
       result = null;
       if (!String.IsNullOrEmpty(binder.Name))
@@ -134,17 +110,13 @@ namespace Helpers
           result = _rowIndex;
           return true;
         }
-        if (_dynamic != null)
-        {
-          return _dynamic.TryGetMember(binder, out result);
-        }
 
         // support '.' for navigation properties
         object obj = _value;
         string[] names = binder.Name.Split('.');
         for (int i = 0; i <= names.Length - 1; i++)
         {
-          if ((obj == null) || !TryGetMember(obj, names[i], ref result))
+          if ((obj == null) || !TryGetMember(obj, names[i], out result))
           {
             result = null;
             return false;
@@ -161,7 +133,7 @@ namespace Helpers
       return _value.ToString();
     }
 
-    private static bool TryGetMember(object obj, string name, ref object result)
+    private static bool TryGetMember(object obj, string name, out object result)
     {
       PropertyInfo property = obj.GetType().GetProperty(name, BindFlags);
       if ((property != null) && (property.GetIndexParameters().Length == 0))
@@ -173,9 +145,51 @@ namespace Helpers
       return false;
     }
     #endregion
-
   }
 
+
+  public class GridColumn
+  {
+
+    public string ColumnName
+    {
+      get;
+      set;
+    }
+    public string Header
+    {
+      get;
+      set;
+    }
+    public bool CanSort
+    {
+      get;
+      set;
+    }
+    public Func<dynamic, dynamic> Format
+    {
+      get;
+      set;
+    }
+    public string Style
+    {
+      get;
+      set;
+    }
+    public string HeaderStyle
+    {
+      get;
+      set;
+    }
+
+    // public GridColumn(string ColumnName, Func<object, object> Format = null, string Header = "", string Style = "", string HeaderStyle = "") 
+    //{
+    //     this.ColumnName = ColumnName;
+    //     this.Header = Header;
+    //     this.CanSort = CanSort;
+    //     this.Format = Format;
+    //     this.Style = Style;
+    //     this.HeaderStyle = HeaderStyle;
+    // }
+  }
 }
-
-

@@ -1,41 +1,35 @@
-﻿using System.Diagnostics;
-using System.Dynamic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.Specialized;
+using System.Diagnostics;
+using System.Linq;
 using System.Web;
+using System.Web.Mvc;
+using System.Web.WebPages;
+using System.Dynamic;
 using System.Text;
 using System.Globalization;
+using System.IO;
 using System.ComponentModel;
-using System.Web.Mvc;
-using System;
-using System.Collections.Generic;
 using Helpers;
-using System.Linq;
-using Zaza.Classes.Helpers;
 
-namespace Zaza
+namespace CONCENTRA.RED.AUTNET.PRESENTATION
 {
   public class Grid
   {
-    #region " Subclasses "
-
 
     internal class Binder : GetMemberBinder
     {
-      public Binder(string name, Boolean ignoreCase)
-        : base(name: name, ignoreCase: ignoreCase)
+      public Binder(string name, bool ignoreCase)
+        : base(name, ignoreCase)
       {
       }
-
       public override DynamicMetaObject FallbackGetMember(DynamicMetaObject target, DynamicMetaObject errorSuggestion)
       {
         throw new NotImplementedException();
       }
     }
 
-
-    #endregion
-
-    #region " Members "
 
     private IEnumerable<object> _source;
     private IEnumerable<GridColumn> _columns;
@@ -45,8 +39,8 @@ namespace Zaza
     private string _headerStyle;
     private string _rowStyle;
     private string _alternatingRowStyle;
-    private Boolean _displayHeader;
-    private Boolean _canSort;
+    private bool _displayHeader;
+    private bool _canSort;
     private string _fieldNamePrefix;
     private string _sortFieldName;
     private string _sortDirectionFieldName;
@@ -54,19 +48,20 @@ namespace Zaza
     private string _defaultSort;
     private SortDirection _sortDirection = SortDirection.Ascending;
     private string _pageFieldName;
+    private bool _displayEmptyGrid;
+
     private Dictionary<string, string> _columnHeaders;
     private Type _elementType;
     private IEnumerable<string> _columnNames;
-    private Boolean _sortColumnSet;
-    private IList<GridRow> _rows;
-    private Boolean _sortDirectionSet;
+    private bool _sortColumnSet;
+    private GridRow[] _rows;
+    private bool _sortDirectionSet;
 
-    #endregion
+    #region " Constructor"
 
-    #region " Constructors "
 
     public Grid(IEnumerable<object> source, IEnumerable<GridColumn> columns = null, string tableStyle = null, string emptyTemplateText = null, string headerStyle = null, string rowStyle = null, string alternatingRowStyle = null, object htmlAttributes = null, string fieldNamePrefix = null, string sortColumn = null,
-                string defaultSort = null, Dictionary<string, string> columnHeaders = null, bool displayHeader = true, bool canSort = true, string sortFieldName = "sort", string sortDirectionFieldName = "sortdir", string pageFieldName = "page")
+    string defaultSort = null, SortDirection defaultSortDirection = SortDirection.Ascending, Dictionary<string, string> columnHeaders = null, bool displayHeader = true, bool canSort = true, string sortFieldName = "sort", string sortDirectionFieldName = "sortdir", string pageFieldName = "page", bool displayEmptyGrid = false)
     {
       this._source = source;
       this._columns = columns;
@@ -85,11 +80,14 @@ namespace Zaza
       this._defaultSort = defaultSort;
       this._pageFieldName = pageFieldName;
       this._columnHeaders = columnHeaders;
+      this._displayEmptyGrid = displayEmptyGrid;
+      this._sortDirection = defaultSortDirection;
     }
+
 
     #endregion
 
-    #region " Properties Public "
+    #region " Properties Public"
 
     public IEnumerable<object> Source
     {
@@ -117,12 +115,12 @@ namespace Zaza
       {
         if (!_sortColumnSet)
         {
-          dynamic sortColumn__1 = QueryString[SortFieldName];
+          string sortColumn__1 = QueryString[SortFieldName];
           if (!String.IsNullOrEmpty(sortColumn__1))
           {
             // navigation columns that contain '.' will be validated during the Sort operation
             // validate other properties up-front and ignore any bad columns passed via the query string
-            if (sortColumn__1.Contains('.') || Enumerable.Contains(ColumnNames, sortColumn__1, StringComparer.OrdinalIgnoreCase))
+            if (sortColumn__1.Contains('.') || ColumnNames.Contains(sortColumn__1))
             {
               _sortColumn = sortColumn__1;
             }
@@ -184,7 +182,7 @@ namespace Zaza
       {
         if (_rows == null)
         {
-          _rows = Source.Select((System.Object o, int i) => new GridRow(this, o, i)).ToArray();
+          _rows = Source.Select((o, i) => new GridRow(this, o, i)).ToArray();
         }
         return _rows;
       }
@@ -194,6 +192,7 @@ namespace Zaza
     {
       get
       {
+
         if (!_sortDirectionSet)
         {
           string sortDirection__1 = QueryString[SortDirectionFieldName];
@@ -207,6 +206,7 @@ namespace Zaza
           _sortDirectionSet = true;
         }
         return _sortDirection;
+
       }
       set
       {
@@ -218,11 +218,9 @@ namespace Zaza
         _sortDirectionSet = true;
       }
     }
-
     #endregion
 
-    #region " Properties Private "
-
+    #region "Private Properties"
     private Type ElementType
     {
       get
@@ -274,11 +272,10 @@ namespace Zaza
         throw new InvalidOperationException("Property setter not supperted after data bound");
       }
     }
-
     #endregion
 
-    #region "Methods"
 
+    #region " Methods Private "
     private static bool IsBindableType(Type type)
     {
       Type underlyingType = Nullable.GetUnderlyingType(type);
@@ -286,35 +283,34 @@ namespace Zaza
       {
         type = underlyingType;
       }
-      return (type.IsPrimitive || type.Equals(typeof(string)) || type.Equals(typeof(DateTime)) || type.Equals(typeof(Decimal)) || type.Equals(typeof(Guid)) || type.Equals(typeof(DateTime)) || type.Equals(typeof(TimeSpan)));
+      return (type.IsPrimitive || type.Equals(typeof(string)) || type.Equals(typeof(DateTime)) || type.Equals(typeof(Decimal)) || type.Equals(typeof(Guid)) || type.Equals(typeof(DateTimeOffset)) || type.Equals(typeof(TimeSpan)));
     }
 
     private IEnumerable<string> GetDefaultColumnNames()
     {
-      var dynObj = (DynamicObject)_source.FirstOrDefault();
+      dynamic dynObj = _source.FirstOrDefault() as DynamicObject;
+
       if (dynObj != null)
       {
         return dynObj.GetDynamicMemberNames();
       }
       else
       {
-
         return (from p in ElementType.GetProperties()
-                where IsBindableType(p.PropertyType) &&
-                      (p.GetIndexParameters().Length == 0)
+                where IsBindableType(p.PropertyType) && (p.GetIndexParameters().Length == 0)
                 select p.Name).OrderBy(n => n, StringComparer.OrdinalIgnoreCase).ToArray();
       }
-
     }
+
     private IEnumerable<GridColumn> GetDefaultColumns()
     {
       IEnumerable<string> names = ColumnNames;
       return (from n in names
               select new GridColumn
-                       {
-                         ColumnName = n,
-                         CanSort = true
-                       }).ToArray();
+              {
+                ColumnName = n,
+                CanSort = true
+              }).ToArray();
     }
 
     private string GetTableHeaderHtml(IEnumerable<GridColumn> columns, string headerStyle)
@@ -324,10 +320,10 @@ namespace Zaza
       {
         tr.MergeAttribute("class", headerStyle);
       }
-      foreach (var column_loopVariable in columns)
+      foreach (GridColumn column in columns)
       {
-        var column = column_loopVariable;
         TagBuilder th = new TagBuilder("th");
+        th.MergeAttribute("class", column.HeaderStyle);
         // uses header default when null, but clears header when empty
         bool headerIsEmpty = (column.Header != null) && (column.Header.Length == 0);
 
@@ -377,7 +373,7 @@ namespace Zaza
 
       // add the sort glyth
       TagBuilder glyth = new TagBuilder("span");
-      if (column == SortColumn)
+      if (column == SortColumn || string.IsNullOrEmpty(SortColumn) && column == _defaultSort)
       {
         glyth.MergeAttribute("class", "sorted");
 
@@ -385,7 +381,7 @@ namespace Zaza
       }
       else
       {
-        glyth.InnerHtml = "▲";
+        //glyth.InnerHtml = "▲";
       }
 
       // send the text as html (encoding done here)
@@ -409,7 +405,7 @@ namespace Zaza
         }
       }
 
-      var queryString = new NameValueCollection(2);
+      NameValueCollection queryString = new NameValueCollection(2);
       queryString[SortFieldName] = column;
       queryString[SortDirectionFieldName] = GetSortDirectionString(sortDir);
       return GetPath(queryString, PageFieldName);
@@ -417,24 +413,23 @@ namespace Zaza
 
     private string GetTableBodyHtml(IEnumerable<GridColumn> columns, string rowStyle, string alternatingRowStyle)
     {
-      var sb = new StringBuilder();
+      StringBuilder sb = new StringBuilder();
       int r = 0;
 
-      foreach (var row in Rows)
+      foreach (GridRow row in Rows)
       {
         string style = GetRowStyle(r, rowStyle, alternatingRowStyle);
-        var tr = new TagBuilder("tr");
+        TagBuilder tr = new TagBuilder("tr");
         if (!String.IsNullOrEmpty(style))
         {
           tr.MergeAttribute("class", style);
         }
-        foreach (var column in columns)
+        foreach (GridColumn column in columns)
         {
-          object value = column.Format == null ? HttpUtility.HtmlEncode(row.ItemValue(column.ColumnName)) : Format(f: column.Format, arg: row).ToString();
-          tr.InnerHtml += GetTableCellHtml(column, (string)value ?? "&nbsp;");
+          dynamic value = column.Format == null ? HttpUtility.HtmlEncode(row.ItemValue(column.ColumnName)) : Format(column.Format, row).ToString();
+          tr.InnerHtml += GetTableCellHtml(column, value ?? "&nbsp;");
         }
         sb.Append(tr.ToString());
-
         r += 1;
       }
       return sb.ToString();
@@ -463,10 +458,11 @@ namespace Zaza
     }
     #endregion
 
-    #region "Friend Methods"
+    #region " Methods Friend "
+
     internal string GetPath(NameValueCollection queryString__1, params string[] exclusions)
     {
-      var temp = new NameValueCollection(QueryString);
+      NameValueCollection temp = new NameValueCollection(QueryString);
       // update current query string in case values were set programmatically
       if (temp.AllKeys.Contains(SortFieldName))
       {
@@ -484,10 +480,9 @@ namespace Zaza
         temp.Set(SortDirectionFieldName, GetSortDirectionString(SortDirection));
       }
       // remove fields from exclusions list
-      foreach (object key_loopVariable in exclusions)
+      foreach (string key in exclusions)
       {
-        var key = key_loopVariable;
-        temp.Remove((string)key);
+        temp.Remove(key);
       }
       // replace with new field values
       foreach (string key in queryString__1.Keys)
@@ -515,22 +510,13 @@ namespace Zaza
     {
       TagBuilder linkTag = new TagBuilder("a");
       linkTag.MergeAttribute("href", path);
-
-      //If [String].IsNullOrEmpty(AjaxUpdateContainerId) Then
-      //  linkTag.MergeAttribute("href", path)
-      //Else
-      //  linkTag.MergeAttribute("href", "#")
-      //  linkTag.MergeAttribute("onclick", GetContainerUpdateScriptInternal(path))
-      //End If
-      // linkTag.SetInnerText(text)
-
-
-      // glyth change (Vlad - 20.12.2010)
       linkTag.InnerHtml = text;
 
       return linkTag.ToString();
     }
+
     #endregion
+
     #region " Methods Shared "
 
     static internal string GetSortDirectionString(SortDirection sortDir)
@@ -538,39 +524,39 @@ namespace Zaza
       return (sortDir == SortDirection.Ascending) ? "ASC" : "DESC";
     }
 
-    private static System.Web.WebPages.HelperResult Format(Func<object, object> f, object arg)
+    private static HelperResult Format(Func<object, object> f, object arg)
     {
       dynamic result = f(arg);
 
-      return new System.Web.WebPages.HelperResult(tw =>
-                                                    {
-                                                      dynamic helper = result as System.Web.WebPages.HelperResult;
+      return new HelperResult(tw =>
+      {
+        dynamic helper = result as HelperResult;
 
-                                                      if (helper != null)
-                                                      {
-                                                        helper.WriteTo(tw);
-                                                        return;
-                                                      }
+        if (helper != null)
+        {
+          helper.WriteTo(tw);
+          return;
+        }
 
-                                                      IHtmlString htmlString = result as IHtmlString;
+        IHtmlString htmlString = result as IHtmlString;
 
 
-                                                      if (htmlString != null)
-                                                      {
-                                                        tw.Write(htmlString);
-                                                        return;
-                                                      }
+        if (htmlString != null)
+        {
+          tw.Write(htmlString);
+          return;
+        }
 
-                                                      if (result != null)
-                                                      {
-                                                        tw.Write(HttpUtility.HtmlEncode(result));
-                                                      }
-                                                    });
+        if (result != null)
+        {
+          tw.Write(HttpUtility.HtmlEncode(result));
+        }
+      });
     }
 
     private static string GetTableCellHtml(GridColumn column, string innerHtml)
     {
-      var td = new TagBuilder("td");
+      TagBuilder td = new TagBuilder("td");
       if (!string.IsNullOrEmpty(column.Style))
       {
         td.MergeAttribute("class", column.Style);
@@ -579,7 +565,7 @@ namespace Zaza
       return td.ToString();
     }
 
-    static internal bool TryGetDynamicMember(DynamicObject o, string name, ref object result)
+    static internal bool TryGetDynamicMember(DynamicObject o, string name, out object result)
     {
       return o.TryGetMember(new Binder(name, true), out result);
     }
@@ -587,7 +573,7 @@ namespace Zaza
     static internal object GetDynamicMember(DynamicObject obj, string name)
     {
       object result = new object();
-      if (TryGetDynamicMember(obj, name, ref result))
+      if (TryGetDynamicMember(obj, name, out result))
       {
         return result;
       }
@@ -597,22 +583,14 @@ namespace Zaza
     static internal IDictionary<string, object> ObjectToDictionary(object instance)
     {
       IDictionary<string, object> dictionary = new Dictionary<string, object>(StringComparer.OrdinalIgnoreCase);
-      if (instance != null)
+      if (((instance != null)))
       {
-        PropertyDescriptor descriptor = default(PropertyDescriptor);
-        var properties = TypeDescriptor.GetProperties(instance);
-        var length = properties.Count;
-        for (var i = 0; i <= length; i++)
+        //PropertyDescriptor descriptor = default(PropertyDescriptor);
+        foreach (PropertyDescriptor descriptor in TypeDescriptor.GetProperties(instance))
         {
-          object obj2 = properties[i].GetValue(instance);
+          object obj2 = descriptor.GetValue(instance);
           dictionary.Add(descriptor.Name, obj2);
         }
-
-        //foreach (var desc in TypeDescriptor.GetProperties(instance))
-        //{
-        //  object obj2 = desc.GetValue(instance);
-        //  dictionary.Add(desc.Name, obj2);
-        //}
       }
       return dictionary;
     }
@@ -623,7 +601,7 @@ namespace Zaza
 
     public MvcHtmlString GetHtml()
     {
-      if (Rows.Count > 0)
+      if (Rows.Count > 0 || _displayEmptyGrid)
       {
         if (_columns == null)
           _columns = GetDefaultColumns();
@@ -680,9 +658,10 @@ namespace Zaza
       else
       {
         TagBuilder divEmptyTemplateContainer = new TagBuilder("div");
-        divEmptyTemplateContainer.InnerHtml += "<br /><br />";
+        //
         TagBuilder divEmptyTemplate = new TagBuilder("div");
         divEmptyTemplate.MergeAttribute("class", "empty-grid");
+        divEmptyTemplate.InnerHtml += "<br />";
         divEmptyTemplate.InnerHtml = _emptyTemplateText.ToString();
         divEmptyTemplateContainer.InnerHtml += divEmptyTemplate.ToString();
         return MvcHtmlString.Create(divEmptyTemplateContainer.ToString());
