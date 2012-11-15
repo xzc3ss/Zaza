@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Zaza.Entities;
 
 namespace Zaza.Classes
 {
@@ -10,7 +11,11 @@ namespace Zaza.Classes
 			get;
 			set;
 		}
-
+    public User CurrentUser
+    {
+      get;
+      set;
+    }
 		public Boolean IsSuperUser
 		{
 			get;
@@ -36,22 +41,6 @@ namespace Zaza.Classes
 			}
 			set { Core.Core.Session["Identity"] = value; }
 		}
-
-
-
-		//  Public Property AllowedModulePages As New List(Of WebsiteStructure.WebsiteModulePagesMetadata)
-		//  Public Property IsSuperUser As Boolean
-
-		//  Private _language As String
-
-
-		//  Public Property User As Customer
-
-
-
-
-
-
-
+                 
 	}
 }

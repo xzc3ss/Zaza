@@ -19,36 +19,35 @@ namespace Zaza.Areas.Admin.Controllers
       return RedirectToAction("List");
     }
 
-    public ActionResult List(Int32 compid = -1, string page = "1", String sort = "Description", String sortdir = "ASC", bool showall = false)
+    public ActionResult List(Int32 compid = -1, int? page = 1, String sort = "Description", String sortdir = "ASC", bool showall = false)
     {
       CurrentPageAction = WebsiteStructure.WebsitePage.Users;
       if (string.IsNullOrEmpty(sort))
       {
         sort = "AddedDate";
-        //sortDir = "Desc";
-        //if (HttpContext.Request.Cookies.AllKeys.Contains("UsersSortColumn") && HttpContext.Request.Cookies.AllKeys.Contains("UsersSortDir"))
-        //{
-        //  var cookie = HttpContext.Request.Cookies["UsersSortColumn"];
-        //  if (!String.IsNullOrEmpty(cookie.Value))
-        //  {
-        //    sort = cookie.Value;
-        //    cookie = HttpContext.Request.Cookies["UsersSortDir"];
-        //    if (cookie != null) sortDir = cookie.Value;
-        //  }
-        //}
+        sortdir = "Desc";
+        if (HttpContext.Request.Cookies.AllKeys.Contains("UsersSortColumn") && HttpContext.Request.Cookies.AllKeys.Contains("UsersSortDir"))
+        {
+          var cookie = HttpContext.Request.Cookies["UsersSortColumn"];
+          if (!String.IsNullOrEmpty(cookie.Value))
+          {
+            sort = cookie.Value;
+            cookie = HttpContext.Request.Cookies["UsersSortDir"];
+            if (cookie != null) sortdir = cookie.Value;
+          }
+        }
       }
 
       var datacontext = new Zaza.Entities.ZazaEntities();
-      var query = (from i in datacontext.Users select i).ToList();
+      var query = (from i in datacontext.Users
+                   select i).ToList();
       //  Dim query = From c In dc.Customers Where Not c.Deleted AndAlso _
       //              c.ProviderID IsNot Nothing AndAlso _
       //var query= FormMethod
       //translate columnHeaders
-      var columnHeaders = new Dictionary<string, string>();
-      columnHeaders.Add("FirstName", "FirstName");
-      //columnHeaders.Add("AddedDate", "AddedDate");
-      ViewData["ColumnHeaders"] = columnHeaders;
-      //ViewData["Title"] = GenerateTitleFromBreadcrumb(Breadcrumb);
+      ViewData["Title"] = GenerateTitleFromBreadcrumb(Breadcrumb);
+
+
       // Dim pageNumber As Integer = 1
       //  If page.HasValue Then pageNumber = page
       //  ' translate column headers
@@ -66,6 +65,14 @@ namespace Zaza.Areas.Admin.Controllers
       //  GetCustomersQueryString = Request.Url.ToString
       //  ViewData("customersBack") = GetCustomersQueryString
       //  Return View(query.ToList)
+      int pageNumber = 1;
+      int totalContacts = query.Count;
+      if (page.HasValue)
+      {
+        pageNumber = page.Value;
+         ViewData["PagerData"] = PagerData.BuildPagerData(pageNumber, totalContacts, "pager-goto", "Page", showGoTo:true);
+      }
+
       return View(query.ToList());
     }
 

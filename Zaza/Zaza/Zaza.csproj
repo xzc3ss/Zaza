@@ -180,6 +180,8 @@
     <Compile Include="Classes\Helpers\FirstLetterFilter.cs" />
     <Compile Include="Classes\Helpers\Grid.cs" />
     <Compile Include="Classes\Helpers\GridRow.cs" />
+    <Compile Include="Classes\Helpers\Pager.cs" />
+    <Compile Include="Classes\PagerData.cs" />
     <Compile Include="Controllers\ShoppingCartController.cs" />
     <Compile Include="Core\Core.cs" />
     <Compile Include="Classes\WebsiteStructure.cs" />
@@ -261,6 +263,7 @@
     <Content Include="Resources\Images\tail-menu.png" />
     <Content Include="Resources\Images\topmenu_active.png" />
     <Content Include="Resources\Images\topmenu_bg.png" />
+    <Content Include="Resources\Stylesheet\Admin\AdminStylesheet.css" />
     <Content Include="Resources\Stylesheet\Site.css" />
     <Content Include="Resources\Stylesheet\Zaza.css" />
     <Content Include="Scripts\jquery-1.7.1-vsdoc.js" />
@@ -367,6 +370,12 @@
       <DependentUpon>Zaza.edmx</DependentUpon>
       <LastGenOutput>Zaza.cs</LastGenOutput>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Admin\Views\_ViewStart.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\ZazaAdminMaster.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

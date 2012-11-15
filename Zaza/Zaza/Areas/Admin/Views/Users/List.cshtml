@@ -2,7 +2,7 @@
 @using CONCENTRA.RED.AUTNET.PRESENTATION
 @using Helpers;
 @{
-  ViewBag.Title = "List";
+  ViewBag.Title = ViewData["Title"];
 }
 @model List<Zaza.Entities.User>
 <h2>List</h2>
@@ -11,10 +11,10 @@
 @AuteursGrid.Grid(source: Model,
         defaultSort: "Description",
              emptyTemplateText: "llaa",
-               alternatingRowStyle: "gridAlternateItemBlueUnclickable",
-               rowStyle: "gridItemBlueUnclickable",
-             tableStyle: "gridClass",
-             headerStyle: "gridHeaderBlue",
-             canSort: true,
-                           columns: new Helpers.GridColumn[] {
-                                                new Helpers.GridColumn{ ColumnName="FirstName",Header="FirstName", CanSort=true}})
+           canSort: true,
+                           columns: new Helpers.GridColumn[] { new Helpers.GridColumn{ColumnName= "ID", Format=(f=> MvcHtmlString.Create(Html.ActionLink("Edit", "List", new {ID=f.ID}).ToHtmlString()))}, 
+                             new Helpers.GridColumn{ ColumnName="Email",Header="Email", CanSort=true},                  
+                             new Helpers.GridColumn{ ColumnName="FirstName",Header="FirstName", CanSort=true},
+                           new Helpers.GridColumn{ ColumnName="LastName",Header="LastName", CanSort=true}
+                           })
+
