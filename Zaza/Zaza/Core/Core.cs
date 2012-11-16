@@ -1,6 +1,7 @@
 ﻿using System.Web;
 using Zaza.Entities;
-namespace Zaza.Core
+
+namespace Zaza
 {
   public static class Core
   {
@@ -10,11 +11,7 @@ namespace Zaza.Core
 
     #endregion
 
-    public static HttpContext GlobalHttpContext
-    {
-      get;
-      set;
-    }
+    public static HttpContext GlobalHttpContext { get; set; }
 
     public static System.Web.SessionState.HttpSessionState Session
     {
@@ -114,7 +111,7 @@ namespace Zaza.Core
     public static void InitializeDataContext()
     {
       //Dim dc As New AutoDialogEntities(System.Configuration.ConfigurationManager.ConnectionStrings("AutoDialogEntities").ConnectionString)
-      ZazaEntities dc = new ZazaEntities();
+      var dc = new ZazaEntities();
       Session["DataContext"] = dc;
     }
     #endregion

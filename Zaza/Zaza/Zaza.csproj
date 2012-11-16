@@ -170,6 +170,8 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\DefaultController.cs" />
+    <Compile Include="Areas\Admin\Controllers\MenuAdminController.cs" />
+    <Compile Include="Areas\Admin\Controllers\SupplierController.cs" />
     <Compile Include="Areas\Admin\Controllers\UsersController.cs" />
     <Compile Include="Areas\Admin\Models\Class1.cs" />
     <Compile Include="Classes\Attributes\LocalizedCompareAttribute.cs" />
@@ -181,6 +183,10 @@
     <Compile Include="Classes\Helpers\Grid.cs" />
     <Compile Include="Classes\Helpers\GridRow.cs" />
     <Compile Include="Classes\Helpers\Pager.cs" />
+    <Compile Include="Classes\Managers\General.cs" />
+    <Compile Include="Classes\Managers\ProductManager.cs" />
+    <Compile Include="Classes\Managers\SuppliersManager.cs" />
+    <Compile Include="Classes\Managers\UsersManager.cs" />
     <Compile Include="Classes\PagerData.cs" />
     <Compile Include="Controllers\ShoppingCartController.cs" />
     <Compile Include="Core\Core.cs" />
@@ -198,6 +204,7 @@
     <Compile Include="Entities\DeliveryAddress.cs">
       <DependentUpon>Zaza.tt</DependentUpon>
     </Compile>
+    <Compile Include="Entities\Extensions\UsersExtension.cs" />
     <Compile Include="Entities\Order.cs">
       <DependentUpon>Zaza.tt</DependentUpon>
     </Compile>
@@ -376,6 +383,21 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Shared\ZazaAdminMaster.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Admin\Views\Users\Edit.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Admin\Views\Supplier\List.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Admin\Views\Supplier\Edit.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Admin\Views\MenuAdmin\MainAdminMenu.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Admin\Views\MenuAdmin\SubMenu.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -2,6 +2,7 @@
 <html>
 <head>
   @Styles.Render("~/Resources/Stylesheet/Admin/AdminStylesheet.css")
+  <script src="@Url.Content("~/Scripts/jquery-1.7.1.min.js")" type="text/javascript"></script>
   @*  <title>@ViewData("Title")</title>
   <meta http-equiv="Content-type" content="text/html;charset=UTF-8" />
   <meta name="description" content="@ViewData("Description")" />
@@ -15,7 +16,7 @@
   <link href="@Url.Content("~/Resources/Scripts/asmselect/jquery.asmselect.css")" rel="stylesheet" type="text/css" />
   <link href="@Url.Content("~/Resources/StyleSheets/base/jquery-ui-1.8.16.custom.css")" rel="stylesheet" type="text/css" />
   @RenderSection("HeaderCSS", False)
-  <script src="@Url.Content("~/Resources/Scripts/jquery-1.7.1.min.js")" type="text/javascript"></script>
+
   <script src="@Url.Content("~/Resources/Scripts/jquery-ui-1.8.11.min.js")" type="text/javascript"></script>
   <script src="@Url.Content("~/Resources/SwfUpload/swfupload.js")" type="text/javascript"></script>
   <script src="@Url.Content("~/Resources/SwfUpload/jquery-asyncUpload-0.1.js")" type="text/javascript"></script>
@@ -40,7 +41,7 @@
   </script>*@
 </head>
 <body>
- @* <div id="header">
+  @* <div id="header">
     @Html.Partial("HeaderBottom")
   </div>*@
   <div style="width: 950px; margin: auto; clear: both; position: relative; z-index: 200;">

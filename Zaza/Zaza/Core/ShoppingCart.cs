@@ -4,45 +4,45 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace Zaza.Core
+namespace Zaza
 {
-	public class ShoppingCart
-	{
-		string ShoppingCartId { get; set; }
-		public const string CartSessionKey = "CartID";
-		// Readonly properties can only be set in initialization or in a constructor
-		public static readonly ShoppingCart Instance;
-	
-		// The static constructor is called as soon as the class is loaded into memory
-		//static ShoppingCart()
-		//{
-		//	// If the cart is not in the session, create one and put it there
-		//	// Otherwise, get it from the session
-		//	if (HttpContext.Current.Session["ASPNETShoppingCart"] == null)
-		//	{
-		//		Instance = new ShoppingCart();
-		//		Instance.Items = new List<CartItem>();
-		//		HttpContext.Current.Session["ASPNETShoppingCart"] = Instance;
-		//	}
-		//	else
-		//	{
-		//		Instance = (ShoppingCart)HttpContext.Current.Session["ASPNETShoppingCart"];
-		//	}
-		//}
+  public class ShoppingCart
+  {
+    string ShoppingCartId { get; set; }
+    public const string CartSessionKey = "CartID";
+    // Readonly properties can only be set in initialization or in a constructor
+    public static readonly ShoppingCart Instance;
+
+    // The static constructor is called as soon as the class is loaded into memory
+    //static ShoppingCart()
+    //{
+    //	// If the cart is not in the session, create one and put it there
+    //	// Otherwise, get it from the session
+    //	if (HttpContext.Current.Session["ASPNETShoppingCart"] == null)
+    //	{
+    //		Instance = new ShoppingCart();
+    //		Instance.Items = new List<CartItem>();
+    //		HttpContext.Current.Session["ASPNETShoppingCart"] = Instance;
+    //	}
+    //	else
+    //	{
+    //		Instance = (ShoppingCart)HttpContext.Current.Session["ASPNETShoppingCart"];
+    //	}
+    //}
 
 
-		public static ShoppingCart GetCart(HttpContextBase context)
-		{
-			var cart = new ShoppingCart();
-			cart.ShoppingCartId = cart.GetCartId(context);
-			return cart;
-		}
-	
-		// Helper method to simplify shopping cart calls
-		public static ShoppingCart GetCart(Controller controller)
-		{
-			return GetCart(controller.HttpContext);
-		}
+    public static ShoppingCart GetCart(HttpContextBase context)
+    {
+      var cart = new ShoppingCart();
+      cart.ShoppingCartId = cart.GetCartId(context);
+      return cart;
+    }
+
+    // Helper method to simplify shopping cart calls
+    public static ShoppingCart GetCart(Controller controller)
+    {
+      return GetCart(controller.HttpContext);
+    }
 
     //public void AddToCart(Album album)
     //{
@@ -173,30 +173,30 @@ namespace Zaza.Core
     ////	// Return the OrderId as the confirmation number
     ////	return order.OrderId;
     //}
-		
-		// We're using HttpContextBase to allow access to cookies.
-		// We're using HttpContextBase to allow access to cookies.
-		public string GetCartId(HttpContextBase context)
-		{
-			if (context.Session[CartSessionKey] == null)
-			{
-				if (!string.IsNullOrWhiteSpace(context.User.Identity.Name))
-				{
-					context.Session[CartSessionKey] =
-							context.User.Identity.Name;
-				}
-				else
-				{
-					// Generate a new random GUID using System.Guid class
-					Guid tempCartId = Guid.NewGuid();
-					// Send tempCartId back to client as a cookie
-					context.Session[CartSessionKey] = tempCartId.ToString();
-				}
-			}
-			return context.Session[CartSessionKey].ToString();
-		}
-		// When a user has logged in, migrate their shopping cart to
-		// be associated with their username
+
+    // We're using HttpContextBase to allow access to cookies.
+    // We're using HttpContextBase to allow access to cookies.
+    public string GetCartId(HttpContextBase context)
+    {
+      if (context.Session[CartSessionKey] == null)
+      {
+        if (!string.IsNullOrWhiteSpace(context.User.Identity.Name))
+        {
+          context.Session[CartSessionKey] =
+              context.User.Identity.Name;
+        }
+        else
+        {
+          // Generate a new random GUID using System.Guid class
+          Guid tempCartId = Guid.NewGuid();
+          // Send tempCartId back to client as a cookie
+          context.Session[CartSessionKey] = tempCartId.ToString();
+        }
+      }
+      return context.Session[CartSessionKey].ToString();
+    }
+    // When a user has logged in, migrate their shopping cart to
+    // be associated with their username
     //public void MigrateCart(string userName)
     //{
     //  var shoppingCart = storeDB.Carts.Where(
@@ -209,5 +209,5 @@ namespace Zaza.Core
     //  storeDB.SaveChanges();
     //}
 
-	}
+  }
 }

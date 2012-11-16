@@ -1,0 +1,59 @@
+﻿@{
+  ViewBag.Title = "Edit";
+}
+@model Zaza.Entities.User
+<h2>Edit</h2>
+
+
+<div>
+  @if (!(Model == null))
+  {
+    @Html.HiddenFor(id => Model.ID)}
+
+  @using (Html.BeginForm("Edit", "Users", FormMethod.Post, new { id = "user-form" }))
+  {
+    @Html.ValidationSummary()
+    @Html.EditorForModel()
+  }
+
+
+  <div id="btns">
+    <a class="admin-button" href="javascript:void()" onclick="$('#user-form').submit();">
+      <span>Save</span>
+    </a>
+    <a href="@Url.Action("List")" class="admin-button" id="back">
+      <span>Back</span>
+
+    </a>
+    @*  @Html.ActionLink("AddNew", "Edit", "Users", new { mode = "create" }, null)*@
+
+    @*<div style="clear: both;">
+   
+    @If Model.User.ID <> 0 Then
+      @<a href="@Url.Action("Delete", New With {.id = Model.User.ID})" class="admin-button" id="delete">
+        <img src="@Url.Content("~/Resources/Images/PlaceAd/button1-left.png")" alt="button-left" />
+        <span>@HttpContext.GetGlobalResourceObject("Buttons", "Delete")</span>
+        <img src="@Url.Content("~/Resources/Images/PlaceAd/button1-right.png")" alt="button-right" />
+      </a>
+      @<a href="@Url.Action("List", "Items", New With {.userID = Model.User.ID})" class="admin-button">
+        <img src="@Url.Content("~/Resources/Images/PlaceAd/button1-left.png")" alt="button-left" />
+        <span>@HttpContext.GetGlobalResourceObject("Buttons", "GoToAdds")</span>
+        <img src="@Url.Content("~/Resources/Images/PlaceAd/button1-right.png")" alt="button-right" />
+      </a>
+    End If
+    @If ViewData("customersBack") IsNot Nothing Then
+      @<a href="@ViewData("customersBack")" class="admin-button" id="back">
+        <img  src="@Url.Content("~/Resources/Images/PlaceAd/button1-left.png")" alt="button-left" />
+        <span>@HttpContext.GetGlobalResourceObject("Buttons", "Back")</span>
+        <img  src="@Url.Content("~/Resources/Images/PlaceAd/button1-right.png")" alt="button-right" />
+      </a>
+    Else
+      @<a href="@Url.Action("List")" class="admin-button">
+        <img  src="@Url.Content("~/Resources/Images/PlaceAd/button1-left.png")" alt="button-left" />
+        <span>@HttpContext.GetGlobalResourceObject("Buttons", "Back")</span>
+        <img  src="@Url.Content("~/Resources/Images/PlaceAd/button1-right.png")" alt="button-right" />
+      </a>
+    En*@
+  </div>
+</div>
+

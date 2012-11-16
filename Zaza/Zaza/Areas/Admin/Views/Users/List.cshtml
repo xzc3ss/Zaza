@@ -7,14 +7,27 @@
 @model List<Zaza.Entities.User>
 <h2>List</h2>
 
-
-@AuteursGrid.Grid(source: Model,
+<div>
+  @AuteursGrid.Grid(source: Model,
         defaultSort: "Description",
              emptyTemplateText: "llaa",
            canSort: true,
-                           columns: new Helpers.GridColumn[] { new Helpers.GridColumn{ColumnName= "ID", Format=(f=> MvcHtmlString.Create(Html.ActionLink("Edit", "List", new {ID=f.ID}).ToHtmlString()))}, 
+                           columns: new Helpers.GridColumn[] { new Helpers.GridColumn{ColumnName= "ID", Format=(f=> MvcHtmlString.Create(Html.ActionLink("Edit", "Edit", new {ID=f.ID}).ToHtmlString()))}, 
                              new Helpers.GridColumn{ ColumnName="Email",Header="Email", CanSort=true},                  
                              new Helpers.GridColumn{ ColumnName="FirstName",Header="FirstName", CanSort=true},
                            new Helpers.GridColumn{ ColumnName="LastName",Header="LastName", CanSort=true}
                            })
+  <div class="search-and-pager">
+    @ZazaPager.Pager((PagerData)ViewData["PagerData"])
+  </div>
+  <div id="btns">
+    @Html.ActionLink("AddNew", "Edit", "Users", new { mode = "create" }, null)
 
+    @*    <a href="@Url.Action("Edit", "Customers", New With {.mode = "create"})" class="admin-button" >
+  <img src="@Url.Content("~/Resources/Images/PlaceAd/button1-left.png")" alt="button-left" />
+  <span>@HttpContext.GetGlobalResourceObject("Buttons", "AddNew").ToString</span>
+  <img  src="@Url.Content("~/Resources/Images/PlaceAd/button1-right.png")" alt="button-right" />
+</a>*@
+  </div>
+
+</div>

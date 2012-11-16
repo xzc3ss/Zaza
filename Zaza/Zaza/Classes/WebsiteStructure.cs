@@ -192,13 +192,14 @@ namespace Zaza.Classes
       allowedPages.Add(WebsitePage.Users);
     }
 
-    public void BuildSuperuserAllowedPages()
+    public void BuildSuperUserAllowedPages()
     {
 
       List<WebsitePage> allowedPages = new List<WebsitePage>();
 
       // create a subset of the website structure containing only allowed pages
       allowedPages.Add(WebsitePage.Users);
+      SetIdentityAllowedPages(allowedPages);
     }
 
     public List<WebsiteModulePages> GetWebsiteStructure()

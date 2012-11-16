@@ -27,6 +27,7 @@ namespace Zaza
 			FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
 			RouteConfig.RegisterRoutes(RouteTable.Routes);
 			BundleConfig.RegisterBundles(BundleTable.Bundles);
+      //ModelMetadataProviders.Current = new MetadataProvider();
 			AuthConfig.RegisterAuth();
 		}
 
@@ -35,14 +36,14 @@ namespace Zaza
 			if (Request.IsAuthenticated)
 			{
 				// Create an array of role names
-				ArrayList roleList = new ArrayList();
+				var roleList = new ArrayList();
 				if (User.Identity.Name == "superuser")
 				{
 					roleList.Add("Superuser");
 				}
 
 				//Convert the roleList ArrayList to a String array
-				string[] roleListArray = (string[])roleList.ToArray(typeof(string));
+				var roleListArray = (string[])roleList.ToArray(typeof(string));
 
 				//Add the roles to the User Principal
 				HttpContext.Current.User = new GenericPrincipal(User.Identity, roleListArray);
