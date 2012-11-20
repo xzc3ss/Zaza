@@ -1,5 +1,5 @@
 ﻿@using System.Activities.Expressions
-@using CONCENTRA.RED.AUTNET.PRESENTATION
+@using Zaza.Presentation
 @using Helpers;
 @{
   ViewBag.Title = ViewData["Title"];
@@ -8,11 +8,12 @@
 <h2>List</h2>
 
 <div>
-  @AuteursGrid.Grid(source: Model,
+  @ZazaGrid.Grid(source: Model,
         defaultSort: "Description",
              emptyTemplateText: "llaa",
            canSort: true,
-                           columns: new Helpers.GridColumn[] { new Helpers.GridColumn{ColumnName= "ID", Format=(f=> MvcHtmlString.Create(Html.ActionLink("Edit", "Edit", new {ID=f.ID}).ToHtmlString()))}, 
+                           columns: new Helpers.GridColumn[] {
+                             new Helpers.GridColumn{ColumnName= "ID", Format=(f=> MvcHtmlString.Create(Html.ActionLink("Edit", "Edit", new {ID=f.ID}).ToHtmlString()))}, 
                              new Helpers.GridColumn{ ColumnName="Email",Header="Email", CanSort=true},                  
                              new Helpers.GridColumn{ ColumnName="FirstName",Header="FirstName", CanSort=true},
                            new Helpers.GridColumn{ ColumnName="LastName",Header="LastName", CanSort=true}

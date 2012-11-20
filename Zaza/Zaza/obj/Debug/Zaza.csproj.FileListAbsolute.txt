@@ -156,6 +156,7 @@ D:\Important\Zaza\trunk\Zaza\Zaza\bin\DotNetOpenAuth.OpenId.xml
 D:\Important\Zaza\trunk\Zaza\Zaza\bin\DotNetOpenAuth.OpenId.RelyingParty.xml
 D:\Important\Zaza\trunk\Zaza\Zaza\obj\Debug\Zaza.dll
 D:\Important\Zaza\trunk\Zaza\Zaza\obj\Debug\Zaza.pdb
+D:\Important\Zaza\trunk\Zaza\Zaza\obj\Debug\Zaza.csprojResolveAssemblyReference.cache
 D:\Dropbox\Zaza\Zaza\trunk\Zaza\Zaza\bin\Zaza.dll
 D:\Dropbox\Zaza\Zaza\trunk\Zaza\Zaza\bin\Zaza.pdb
 D:\Dropbox\Zaza\Zaza\trunk\Zaza\Zaza\bin\Antlr3.Runtime.dll
@@ -208,5 +209,3 @@ D:\Dropbox\Zaza\Zaza\trunk\Zaza\Zaza\bin\DotNetOpenAuth.OpenId.xml
 D:\Dropbox\Zaza\Zaza\trunk\Zaza\Zaza\bin\DotNetOpenAuth.OpenId.RelyingParty.xml
 D:\Dropbox\Zaza\Zaza\trunk\Zaza\Zaza\obj\Debug\Zaza.dll
 D:\Dropbox\Zaza\Zaza\trunk\Zaza\Zaza\obj\Debug\Zaza.pdb
-D:\Important\Zaza\trunk\Zaza\Zaza\obj\Debug\Zaza.csprojResolveAssemblyReference.cache
-D:\Dropbox\Zaza\Zaza\trunk\Zaza\Zaza\obj\Debug\Zaza.csprojResolveAssemblyReference.cache

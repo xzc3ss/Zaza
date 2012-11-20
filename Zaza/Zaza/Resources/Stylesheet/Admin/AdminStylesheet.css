@@ -2,7 +2,10 @@
 {
 }
 
-
+ul
+{
+  list-style: none outside none;
+}
 /*body**/
 #contentwrapper
 {

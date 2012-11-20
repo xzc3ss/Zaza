@@ -12,13 +12,8 @@ namespace Zaza.Entities
     using System;
     using System.Collections.Generic;
     
-    public partial class Supplier
+    public partial class SuppTable
     {
-        public Supplier()
-        {
-            this.SizeingCharts = new HashSet<SizeingChart>();
-        }
-    
         public int ID { get; set; }
         public string Website { get; set; }
         public string Name { get; set; }
@@ -27,9 +22,5 @@ namespace Zaza.Entities
         public Nullable<System.DateTime> AddedDate { get; set; }
         public Nullable<System.DateTime> CreatedDate { get; set; }
         public Nullable<bool> Deleted { get; set; }
-    
-        public virtual ICollection<SizeingChart> SizeingCharts { get; set; }
-        public virtual Supplier Supplier1 { get; set; }
-        public virtual Supplier Supplier2 { get; set; }
     }
 }

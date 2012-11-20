@@ -11,9 +11,9 @@ using System.Reflection;
 using System.Runtime.CompilerServices;
 
 
-namespace CONCENTRA.RED.AUTNET.PRESENTATION
+namespace Zaza.Presentation
 {
-  public partial class AuteursGrid
+  public partial class ZazaGrid
   {
 
     public static MvcHtmlString Grid(IEnumerable<object> source, IEnumerable<Helpers.GridColumn> columns = null, string tableStyle = "grid", string emptyTemplateText = null, string headerStyle = null, string rowStyle = null, string alternatingRowStyle = "alt-row", object htmlAttributes = null, string fieldNamePrefix = null, string sortColumn = null,

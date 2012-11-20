@@ -1,5 +1,32 @@
 ﻿@{
-    ViewBag.Title = "List";
+  ViewBag.Title = "List";
 }
+@using System.Runtime.Remoting.Messaging
+@using System.Web.Mvc.Html
+@using Zaza.Presentation
+@using Helpers;
+@{
+  ViewBag.Title = ViewData["Title"];
+}
+@model List<Zaza.Entities.Supplier>
 
 <h2>List</h2>
+@ZazaGrid.Grid(source: Model,
+               defaultSort: "Description",
+               emptyTemplateText: "llaa",
+               canSort: true,
+               columns: new Helpers.GridColumn[] { 
+                                                    new Helpers.GridColumn{ColumnName= "ID", Format=(f=> MvcHtmlString.Create(Html.ActionLink("Edit", "Edit", new {ID=f.ID}).ToHtmlString()))}, 
+                                                   new Helpers.GridColumn{ ColumnName="ContactEmail",Header="ContactEmail", CanSort=true},
+                                                     new Helpers.GridColumn{ ColumnName="Name",Header="Name", CanSort=true}                 
+                                                   
+                                                 })
+<div id="btns">
+  @Html.ActionLink("AddNew", "Edit", "Supplier", new { mode = "create" }, null)
+
+  @*    <a href="@Url.Action("Edit", "Customers", New With {.mode = "create"})" class="admin-button" >
+  <img src="@Url.Content("~/Resources/Images/PlaceAd/button1-left.png")" alt="button-left" />
+  <span>@HttpContext.GetGlobalResourceObject("Buttons", "AddNew").ToString</span>
+  <img  src="@Url.Content("~/Resources/Images/PlaceAd/button1-right.png")" alt="button-right" />
+</a>*@
+</div>

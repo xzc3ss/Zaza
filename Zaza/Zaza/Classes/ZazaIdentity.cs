@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.Web;
 using Zaza.Classes;
 using Zaza.Entities;
+using User = Zaza.Entities.User;
 
 namespace Zaza
 {
   public class ZazaIdentity
   {
-    public new List<WebsiteStructure.WebsiteModulePagesMetadata> AllowedModulePages { get; set; }
+    public List<WebsiteStructure.WebsiteModulePagesMetadata> AllowedModulePages = new List<WebsiteStructure.WebsiteModulePagesMetadata>();
 
     public User CurrentUser
     {
@@ -38,13 +39,12 @@ namespace Zaza
         if (Core.Session["Identity"] == null)
         {
           Core.Session["Identity"] = new ZazaIdentity();
+          //ZazaIdentity.Current.AllowedModulePages = new List<WebsiteStructure.WebsiteModulePagesMetadata>();
         }
         return (ZazaIdentity)Core.Session["Identity"];
       }
       set { Core.Session["Identity"] = value; }
     }
-
-
 
 
   }

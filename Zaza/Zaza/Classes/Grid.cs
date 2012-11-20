@@ -13,7 +13,7 @@ using System.IO;
 using System.ComponentModel;
 using Helpers;
 
-namespace CONCENTRA.RED.AUTNET.PRESENTATION
+namespace Zaza.Presentation
 {
   public class Grid
   {

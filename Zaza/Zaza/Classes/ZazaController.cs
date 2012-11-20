@@ -15,7 +15,7 @@ namespace Zaza.Classes
 		public void BuildDefaultBreadcrumb()
 		{
 			var breadcrumbPages = new List<WebsiteStructure.WebsitePageMetadata>();
-			var route = this.ControllerContext.RouteData.Values;
+			dynamic route = this.ControllerContext.RouteData.Values;
 			string action = Convert.ToString(route["action"]);
 			string controller = Convert.ToString(route["controller"]);
 			WebsiteStructure.WebsitePageMetadata previousItem;

@@ -34,6 +34,7 @@ namespace Zaza.Entities
         public DbSet<SizeingChart> SizeingCharts { get; set; }
         public DbSet<Supplier> Suppliers { get; set; }
         public DbSet<SupplierSentOrder> SupplierSentOrders { get; set; }
+        public DbSet<SuppTable> SuppTables { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<WhishList> WhishLists { get; set; }
     }

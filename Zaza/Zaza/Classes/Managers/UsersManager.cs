@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using Zaza.Entities;
+using User = Zaza.Entities.User;
 
 namespace Zaza.Classes.Managers
 {
@@ -19,6 +20,7 @@ namespace Zaza.Classes.Managers
 
       return exists;
     }
+
     public static Boolean CheckExistingUserById(int userID)
     {
       var exists = false;
@@ -30,12 +32,14 @@ namespace Zaza.Classes.Managers
 
       return exists;
     }
+
     public static User GetUserByEmail(string email)
     {
       var exists = false;
       var query = (from u in Core.DataContext.Users where u.Email == email select u).FirstOrDefault();
       return query;
     }
+
     public static User CreateNewUser(User newUser)
     {
       var exists = false;

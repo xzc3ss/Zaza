@@ -9,12 +9,12 @@ namespace Zaza.Classes
   {
     public enum WebsiteModule
     {
-      Default, Users
+      Default, Users, Supplier
 
     }
     public enum WebsitePage
     {
-      Default, Users
+      Default, Users, SupplierList, SupplierEdit
     }
 
     #region Classes
@@ -32,8 +32,9 @@ namespace Zaza.Classes
       public WebsiteModuleMetadata(WebsiteModule myModule, string title, string area, string controller, string action, Boolean renderAsDropDown = false)
       {
         this.WebsiteModule = myModule;
+        this.Title = title;
         this.Action = action;
-        this.Controller = title;
+        this.Controller = controller;
         this.Area = area;
         this.RenderAsDropDown = renderAsDropDown;
       }
@@ -97,23 +98,27 @@ namespace Zaza.Classes
     public class WebsiteModulePagesMetadata
     {
       public WebsiteModuleMetadata WebsiteModuleMetadata;
-      public new List<WebsitePageMetadata> WebsitePagesMetadata;
+
+      public List<WebsitePageMetadata> WebsitePagesMetadata = new List<WebsitePageMetadata>();
       public WebsiteModulePagesMetadata(WebsiteModuleMetadata myModuleMetadata)
       {
         this.WebsiteModuleMetadata = myModuleMetadata;
       }
-
-
     }
+
 
     #endregion
 
     #region Methods
-
     private void SetIdentityAllowedPages(List<WebsitePage> allowedPages)
     {
       // clean the allowed pages
-      ZazaIdentity.Current.AllowedModulePages.Clear();
+      if (ZazaIdentity.Current.AllowedModulePages != null)
+      {
+        ZazaIdentity.Current.AllowedModulePages.Clear();
+      }
+
+
 
       List<WebsiteModulePages> websiteStructure = GetWebsiteStructure();
       List<WebsiteModuleMetadata> modulesMetadata = GetWebsiteModulesMetadata();
@@ -122,39 +127,42 @@ namespace Zaza.Classes
       foreach (WebsiteModulePages modulePages in websiteStructure)
       {
         // get the allowed pages for the current module
-        var pages = modulePages.WebsitePages.Intersect(allowedPages).ToList();
+        dynamic pages = modulePages.WebsitePages.Intersect(allowedPages).ToList();
 
         if (pages.Count > 0)
         {
           // find the module metadata
           WebsiteModulePagesMetadata moduleMetadata = null;
-          foreach (var myModuleMetadata in modulesMetadata)
+          foreach (WebsiteModuleMetadata myModuleMetadata in modulesMetadata)
           {
             if (myModuleMetadata.WebsiteModule == modulePages.WebsiteModule)
             {
               moduleMetadata = new WebsiteModulePagesMetadata(myModuleMetadata);
 
               // add the pages metadata
-              foreach (var allowedPage in pages)
+              foreach (WebsitePage allowedPage in pages)
               {
-                foreach (var myPageMetadata in pagesMetadata)
+                foreach (WebsitePageMetadata myPageMetadata in pagesMetadata)
                 {
                   if (allowedPage == myPageMetadata.WebsitePage)
                   {
                     moduleMetadata.WebsitePagesMetadata.Add(myPageMetadata);
-
+                    break; // TODO: might not be correct. Was : Exit For
                   }
                 }
               }
 
+              break; // TODO: might not be correct. Was : Exit For
             }
           }
 
           // add the found allowed module and pages to the identity object
-          ZazaIdentity.Current.AllowedModulePages.Add(moduleMetadata);
+          if (ZazaIdentity.Current.AllowedModulePages != null)
+            ZazaIdentity.Current.AllowedModulePages.Add(moduleMetadata);
         }
       }
     }
+
 
 
     #endregion
@@ -164,23 +172,27 @@ namespace Zaza.Classes
     {
       var websiteModulesMetadata = new List<WebsiteModuleMetadata>();
       websiteModulesMetadata.Add(new WebsiteModuleMetadata(WebsiteModule.Users, "Users", "Admin", "Users", "List"));
+      websiteModulesMetadata.Add(new WebsiteModuleMetadata(WebsiteModule.Supplier, "SupplierList", "Admin", "Supplier", "List"));
       return websiteModulesMetadata;
     }
 
 
     public List<WebsitePageMetadata> GetWebsitePagesMetadata()
     {
-      List<WebsitePageMetadata> websitePagesMetadata = new List<WebsitePageMetadata>();
-      websitePagesMetadata.Add(new WebsitePageMetadata(WebsitePage.Users, "Home", "", "Home", "Index"));
+      var websitePagesMetadata = new List<WebsitePageMetadata>();
+
+      websitePagesMetadata.Add(new WebsitePageMetadata(WebsitePage.Users, "List", "Admin", "Users", "List"));
+      websitePagesMetadata.Add(new WebsitePageMetadata(WebsitePage.SupplierList, "List", "Admin", "Supplier", "List"));
+      websitePagesMetadata.Add(new WebsitePageMetadata(WebsitePage.SupplierEdit, "Edit", "Admin", "Supplier", "Edit"));
       return websitePagesMetadata;
     }
 
     public void BuildAllowedPages()
     {
-      List<WebsitePage> allowedPages = new List<WebsitePage>();
-      // create a subset of the website structure containing only allowed pages
+      var allowedPages = new List<WebsitePage>();
       allowedPages.Add(WebsitePage.Users);
-      // set the allowed pages with metadata to the current identity
+      allowedPages.Add(WebsitePage.SupplierList);
+      allowedPages.Add(WebsitePage.SupplierEdit);
       SetIdentityAllowedPages(allowedPages);
     }
 
@@ -188,8 +200,8 @@ namespace Zaza.Classes
     public void BuildAdminAllowedPages()
     {
 
-      List<WebsitePage> allowedPages = new List<WebsitePage>();
-      allowedPages.Add(WebsitePage.Users);
+      var allowedPages = new List<WebsitePage> { WebsitePage.Users, WebsitePage.SupplierList, WebsitePage.SupplierEdit};
+      SetIdentityAllowedPages(allowedPages);
     }
 
     public void BuildSuperUserAllowedPages()
@@ -199,15 +211,25 @@ namespace Zaza.Classes
 
       // create a subset of the website structure containing only allowed pages
       allowedPages.Add(WebsitePage.Users);
+      allowedPages.Add(WebsitePage.SupplierList);
+      allowedPages.Add(WebsitePage.SupplierEdit);
       SetIdentityAllowedPages(allowedPages);
     }
 
     public List<WebsiteModulePages> GetWebsiteStructure()
     {
-      List<WebsiteModulePages> websiteStructure = new List<WebsiteModulePages>();
-      WebsiteModulePages modulePages = default(WebsiteModulePages);
+      var websiteStructure = new List<WebsiteModulePages>();
+      WebsiteModulePages modulePages = null;
+
+
       modulePages = new WebsiteModulePages(WebsiteModule.Users);
       modulePages.WebsitePages.Add(WebsitePage.Users);
+      websiteStructure.Add(modulePages);
+
+
+      modulePages = new WebsiteModulePages(WebsiteModule.Supplier);
+      modulePages.WebsitePages.Add(WebsitePage.SupplierList);
+      modulePages.WebsitePages.Add(WebsitePage.SupplierEdit);
       websiteStructure.Add(modulePages);
       return websiteStructure;
     }

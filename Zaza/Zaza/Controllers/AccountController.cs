@@ -57,6 +57,8 @@ namespace Zaza.Controllers
         });
 
       }
+      FormsAuthentication.SetAuthCookie(model.UserName, false);
+
       //if (ModelState.IsValid && WebSecurity.Login(model.UserName, model.Password, persistCookie: model.RememberMe))
       //{
       //  return RedirectToLocal(returnUrl);

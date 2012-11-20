@@ -46,7 +46,7 @@
   </div>*@
   <div style="width: 950px; margin: auto; clear: both; position: relative; z-index: 200;">
     <div id="slideMenu" class="al jqueryslidemenu">
-      @*  @Html.Action("MainAdminMenu", "MenuAdmin", New With {.area = "Admin"})*@
+      @Html.Action("MainAdminMenu", "MenuAdmin",  new { area = "Admin"})
     </div>
   </div>
   <div id="container" class="container-info" style="clear: both;">

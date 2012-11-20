@@ -171,6 +171,7 @@
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\DefaultController.cs" />
     <Compile Include="Areas\Admin\Controllers\MenuAdminController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ProductController.cs" />
     <Compile Include="Areas\Admin\Controllers\SupplierController.cs" />
     <Compile Include="Areas\Admin\Controllers\UsersController.cs" />
     <Compile Include="Areas\Admin\Models\Class1.cs" />
@@ -179,6 +180,7 @@
     <Compile Include="Classes\Attributes\LocalizedRegularExpression.cs" />
     <Compile Include="Classes\Attributes\LocalizedRequiredAttribute.cs" />
     <Compile Include="Classes\Grid.cs" />
+    <Compile Include="Classes\Helpers\ExtendableButton.cs" />
     <Compile Include="Classes\Helpers\FirstLetterFilter.cs" />
     <Compile Include="Classes\Helpers\Grid.cs" />
     <Compile Include="Classes\Helpers\GridRow.cs" />
@@ -204,6 +206,7 @@
     <Compile Include="Entities\DeliveryAddress.cs">
       <DependentUpon>Zaza.tt</DependentUpon>
     </Compile>
+    <Compile Include="Entities\Extensions\SupplierExtension.cs" />
     <Compile Include="Entities\Extensions\UsersExtension.cs" />
     <Compile Include="Entities\Order.cs">
       <DependentUpon>Zaza.tt</DependentUpon>
@@ -224,6 +227,9 @@
       <DependentUpon>Zaza.tt</DependentUpon>
     </Compile>
     <Compile Include="Entities\SupplierSentOrder.cs">
+      <DependentUpon>Zaza.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\SuppTable.cs">
       <DependentUpon>Zaza.tt</DependentUpon>
     </Compile>
     <Compile Include="Entities\User.cs">
@@ -358,6 +364,27 @@
     <Content Include="Areas\Admin\Views\Users\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Areas\Admin\Views\_ViewStart.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\ZazaAdminMaster.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Admin\Views\Users\Edit.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Admin\Views\Supplier\List.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Admin\Views\Supplier\Edit.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Admin\Views\Shared\MainAdminMenu.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Admin\Views\Shared\SubMenu.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
     <EntityDeploy Include="Entities\Zaza.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>Zaza.Designer.cs</LastGenOutput>
@@ -377,27 +404,6 @@
       <DependentUpon>Zaza.edmx</DependentUpon>
       <LastGenOutput>Zaza.cs</LastGenOutput>
     </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Areas\Admin\Views\_ViewStart.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Shared\ZazaAdminMaster.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Areas\Admin\Views\Users\Edit.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Areas\Admin\Views\Supplier\List.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Areas\Admin\Views\Supplier\Edit.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Areas\Admin\Views\MenuAdmin\MainAdminMenu.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Areas\Admin\Views\MenuAdmin\SubMenu.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

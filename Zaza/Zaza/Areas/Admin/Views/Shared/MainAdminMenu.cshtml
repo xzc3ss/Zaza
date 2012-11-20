@@ -1,0 +1,28 @@
+﻿@using Zaza.Classes
+@model IEnumerable<Zaza.Classes.WebsiteStructure.WebsiteModuleMetadata>
+<ul class="al menu">
+  @foreach (WebsiteStructure.WebsiteModuleMetadata item in Model)
+  { 
+    <li class="first-level-item @(
+    
+ item.IsCurrentModule ? "menu-item-active" : "")" id="@item.WebsiteModule.ToString()">
+      @if (item.Controller == "Default")
+      {
+        <div class="menu-item-first">
+        </div>
+      }
+      @Html.ActionLink(item.Title, item.Action, item.Controller, new { area = item.Area }, new { @class = (item.IsCurrentModule ? "al first-level-item menu-item-active" : "al first-level-item") })
+      <div class="al menu-item-side @(item.IsCurrentModule ? "menu-item-active" : "") ">
+      </div>
+      @if (item.RenderAsDropDown)
+      {
+      
+        @Html.Action("SubMenu", "MenuAdmin", new { currentModule = item.WebsiteModule })
+      }
+      else
+      {<ul class="second-level-item" style="display: none;">
+      </ul>
+      }
+    </li>
+  }
+</ul>

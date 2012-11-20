@@ -2,17 +2,17 @@
 
 namespace Zaza.Entities
 {
-  [MetadataType(typeof(UserMetadata))]
-  public partial class User
+  [MetadataType(typeof(SupplierMetadata))]
+  public partial class Supplier
   {
   }
 
-  public class UserMetadata
+  public class SupplierMetadata
   {
     [ScaffoldColumn(false)]
     public int ID { get; set; }
     //[LocalizedRegularExpression("ErrorMessages", "EmailIsNotValid", "\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*")]
-    public System.String Email
+    public System.String ContactEmail
     {
       get;
       set;

@@ -16,6 +16,8 @@ namespace Zaza.Entities
     {
         public int ID { get; set; }
         public string Path { get; set; }
-        public Nullable<int> SupplierID { get; set; }
+        public int SupplierID { get; set; }
+    
+        public virtual Supplier Supplier { get; set; }
     }
 }

@@ -25,10 +25,12 @@
       <span>Back</span>
 
     </a>
+   
     @*  @Html.ActionLink("AddNew", "Edit", "Users", new { mode = "create" }, null)*@
 
     @*<div style="clear: both;">
    
+    
     @If Model.User.ID <> 0 Then
       @<a href="@Url.Action("Delete", New With {.id = Model.User.ID})" class="admin-button" id="delete">
         <img src="@Url.Content("~/Resources/Images/PlaceAd/button1-left.png")" alt="button-left" />

@@ -6,6 +6,8 @@ using System.Web.Mvc;
 using Zaza.Classes;
 using Zaza.Entities;
 using Zaza.Classes.Managers;
+using User = Zaza.Entities.User;
+
 namespace Zaza.Areas.Admin.Controllers
 {
 
@@ -20,7 +22,7 @@ namespace Zaza.Areas.Admin.Controllers
       return RedirectToAction("List");
     }
 
-    public ActionResult List(Int32 compid = -1, int? page = 1, String sort = "Description", String sortdir = "ASC", bool showall = false)
+    public ActionResult List(int? page = 1, String sort = "Description", String sortdir = "ASC", bool showall = false)
     {
       CurrentPageAction = WebsiteStructure.WebsitePage.Users;
       if (string.IsNullOrEmpty(sort))

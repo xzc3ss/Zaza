@@ -26,7 +26,7 @@ namespace Helpers
   public class GridRow : DynamicObject, IEnumerable<object>
   {
     private const BindingFlags BindFlags = BindingFlags.Public | BindingFlags.Instance | BindingFlags.Static | BindingFlags.IgnoreCase;
-    private CONCENTRA.RED.AUTNET.PRESENTATION.Grid _grid;
+    private Zaza.Presentation.Grid _grid;
     private int _rowIndex;
     private object _value;
     private IEnumerable<object> _values;
@@ -41,7 +41,7 @@ namespace Helpers
       }
     }
 
-    public CONCENTRA.RED.AUTNET.PRESENTATION.Grid Grid
+    public Zaza.Presentation.Grid Grid
     {
       get
       {
@@ -53,7 +53,7 @@ namespace Helpers
 
     #region " Constructor "
 
-    public GridRow(CONCENTRA.RED.AUTNET.PRESENTATION.Grid grid, object value, int rowIndex)
+    public GridRow(Zaza.Presentation.Grid grid, object value, int rowIndex)
     {
       this._grid = grid;
       this._value = value;
@@ -73,7 +73,7 @@ namespace Helpers
       }
       object value;
 
-      if (!CONCENTRA.RED.AUTNET.PRESENTATION.Grid.TryGetDynamicMember(this, name, out value))
+      if (!Zaza.Presentation.Grid.TryGetDynamicMember(this, name, out value))
       {
         throw new InvalidOperationException(string.Format(CultureInfo.CurrentCulture, "Column {0} was not found", name));
       }
@@ -84,7 +84,7 @@ namespace Helpers
     {
       if (_values == null)
       {
-        _values = _grid.ColumnNames.Select(c => CONCENTRA.RED.AUTNET.PRESENTATION.Grid.GetDynamicMember(this, c));
+        _values = _grid.ColumnNames.Select(c => Zaza.Presentation.Grid.GetDynamicMember(this, c));
       }
       return _values.GetEnumerator();
     }
