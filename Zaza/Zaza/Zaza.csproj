@@ -203,6 +203,9 @@
     <Compile Include="Entities\Category.cs">
       <DependentUpon>Zaza.tt</DependentUpon>
     </Compile>
+    <Compile Include="Entities\Country.cs">
+      <DependentUpon>Zaza.tt</DependentUpon>
+    </Compile>
     <Compile Include="Entities\DeliveryAddress.cs">
       <DependentUpon>Zaza.tt</DependentUpon>
     </Compile>
@@ -220,6 +223,9 @@
     <Compile Include="Entities\ProductMedia.cs">
       <DependentUpon>Zaza.tt</DependentUpon>
     </Compile>
+    <Compile Include="Entities\Role.cs">
+      <DependentUpon>Zaza.tt</DependentUpon>
+    </Compile>
     <Compile Include="Entities\SizeingChart.cs">
       <DependentUpon>Zaza.tt</DependentUpon>
     </Compile>
@@ -233,6 +239,9 @@
       <DependentUpon>Zaza.tt</DependentUpon>
     </Compile>
     <Compile Include="Entities\User.cs">
+      <DependentUpon>Zaza.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\WebsiteCredential.cs">
       <DependentUpon>Zaza.tt</DependentUpon>
     </Compile>
     <Compile Include="Entities\WhishList.cs">

@@ -17,19 +17,26 @@ namespace Zaza.Entities
         public Supplier()
         {
             this.SizeingCharts = new HashSet<SizeingChart>();
+            this.WebsiteCredentials = new HashSet<WebsiteCredential>();
         }
     
         public int ID { get; set; }
         public string Website { get; set; }
         public string Name { get; set; }
         public string ContactEmail { get; set; }
-        public string Country { get; set; }
+        public string AlternateEmail { get; set; }
+        public Nullable<int> CountryID { get; set; }
+        public Nullable<bool> ResellerPartner { get; set; }
+        public Nullable<bool> NeedsReseller { get; set; }
+        public Nullable<bool> HasEuropeStore { get; set; }
+        public Nullable<bool> Active { get; set; }
+        public Nullable<bool> Deleted { get; set; }
         public Nullable<System.DateTime> AddedDate { get; set; }
         public Nullable<System.DateTime> CreatedDate { get; set; }
-        public Nullable<bool> Deleted { get; set; }
     
         public virtual ICollection<SizeingChart> SizeingCharts { get; set; }
         public virtual Supplier Supplier1 { get; set; }
         public virtual Supplier Supplier2 { get; set; }
+        public virtual ICollection<WebsiteCredential> WebsiteCredentials { get; set; }
     }
 }

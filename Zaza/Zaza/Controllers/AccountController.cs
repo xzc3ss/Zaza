@@ -13,6 +13,7 @@ using Zaza.Models;
 using System.Security.Principal;
 //using Zaza.Filters;
 using Zaza.Entities;
+using Zaza.Classes.Managers;
 
 namespace Zaza.Controllers
 {
@@ -48,24 +49,32 @@ namespace Zaza.Controllers
     public ActionResult Login(LoginModel model)
     {
       //, string returnUr
-      var dc = new ZazaEntities();
-      if (ModelState.IsValid && model.UserName.Equals("superuser"))
+      var user = UsersManager.GetUserByEmail(model.Email);
+
+      if (ModelState.IsValid && user != null)
       {
-        return RedirectToAction("Index", "Default", new
+        if ((user.Password == model.Password) && (user.Role.IsSuperUser))
         {
-          area = "Admin"
-        });
+          FormsAuthentication.SetAuthCookie(model.Email, false);
+          return RedirectToAction("Index", "Default", new
+          {
+            area = "Admin"
+          });
+
+          
+        }
+
+
 
       }
-      FormsAuthentication.SetAuthCookie(model.UserName, false);
+      else
+      {
 
-      //if (ModelState.IsValid && WebSecurity.Login(model.UserName, model.Password, persistCookie: model.RememberMe))
-      //{
-      //  return RedirectToLocal(returnUrl);
-      //}
+        ModelState.AddModelError("", "The user name or password provided is incorrect.");
+      }
 
-      // If we got this far, something failed, redisplay form
-      ModelState.AddModelError("", "The user name or password provided is incorrect.");
+      FormsAuthentication.SetAuthCookie(model.Email, false);
+
       return View(model);
     }
 

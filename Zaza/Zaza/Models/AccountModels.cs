@@ -86,74 +86,76 @@ using Zaza.Classes.Attributes;
 
 namespace Zaza.Models
 {
-	public class LoginModel
-	{
-		//[LocalizedRequired("ErrorMessages", "UsernameRequired")]
-		//[LocalizedDisplayName["Common", "Username"]]
-		[LocalizedRegularExpression("ErrorMessages", "EmailIsNotValid", "\\w+([-+.']\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*|superuser")]
-		public string UserName { get; set; }
+  public class LoginModel
+  {
+    //[LocalizedRequired("ErrorMessages", "UsernameRequired")]
+    //[LocalizedDisplayName["Common", "Username"]]
+    [LocalizedRegularExpression("ErrorMessages", "EmailIsNotValid", "\\w+([-+.']\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*|superuser")]
+    public string Email { get; set; }
 
-		[DataType(DataType.Password)]
-		[LocalizedRequired("ErrorMessages", "PasswordRequired")]
-		public string Password { get; set; }
-		public bool RememberMe { get; set; }
-		public int LoginAttempts { get; set; }
-	}
+    [DataType(DataType.Password)]
+    [LocalizedRequired("ErrorMessages", "PasswordRequired")]
+    public string Password { get; set; }
+    public bool RememberMe { get; set; }
+    public int LoginAttempts { get; set; }
 
-	public class RegisterModel
-	{
-		[Required]
-		[Display(Name = "User name")]
-		public string UserName { get; set; }
 
-		[Required]
-		[StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
-		[DataType(DataType.Password)]
-		[Display(Name = "Password")]
-		public string Password { get; set; }
+  }
 
-		[DataType(DataType.Password)]
-		[Display(Name = "Confirm password")]
-		[Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
-		public string ConfirmPassword { get; set; }
-	}
+  public class RegisterModel
+  {
+    [Required]
+    [Display(Name = "User name")]
+    public string UserName { get; set; }
 
-	public class RegisterPasswordModel
-	{
-		public string userID;
-		private string _newPasswordValue;
+    [Required]
+    [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
+    [DataType(DataType.Password)]
+    [Display(Name = "Password")]
+    public string Password { get; set; }
 
-		private string _confirmPasswordValue;
-		[StringLength(20, MinimumLength = 6)]
-		[DataType(DataType.Password)]
-		[LocalizedDisplayName("Common", "NewPassword")]
-		[LocalizedRequired("Common", "NewPasswordRequired", AllowEmptyStrings = false)]
-		public string NewPassword
-		{
-			get { return _newPasswordValue; }
-			set { _newPasswordValue = value; }
-		}
+    [DataType(DataType.Password)]
+    [Display(Name = "Confirm password")]
+    [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+    public string ConfirmPassword { get; set; }
+  }
 
-		[StringLength(20, MinimumLength = 6)]
-		[DataType(DataType.Password)]
-		[LocalizedDisplayName("Common", "ConfirmPassword")]
-		[LocalizedRequired("ErrorMessages", "ConfirmationPasswordNeeded", AllowEmptyStrings = false)]
-		[LocalizedCompare("NewPassword", "ErrorMessages", "FieldsDoNotMatch", "Common", "NewPassword", "Common", "ConfirmPassword")]
-		public string ConfirmPassword
-		{
-			get { return _confirmPasswordValue; }
-			set { _confirmPasswordValue = value; }
-		}
+  public class RegisterPasswordModel
+  {
+    public string userID;
+    private string _newPasswordValue;
 
-		[Display(Name = "Remember me?")]
-		public bool RememberMe { get; set; }
-	}
+    private string _confirmPasswordValue;
+    [StringLength(20, MinimumLength = 6)]
+    [DataType(DataType.Password)]
+    [LocalizedDisplayName("Common", "NewPassword")]
+    [LocalizedRequired("Common", "NewPasswordRequired", AllowEmptyStrings = false)]
+    public string NewPassword
+    {
+      get { return _newPasswordValue; }
+      set { _newPasswordValue = value; }
+    }
 
-	public class ForgotPasswordModel
-	{
-		[LocalizedRequired("ErrorMessages", "UsernameRequired")]
-		[LocalizedDisplayName("Common", "Username")]
-		[LocalizedRegularExpression("ErrorMessages", "EmailIsNotValid", "\\w+([-+.']\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*|superuser")]
-		public string UserEmail { get; set; }
-	}
+    [StringLength(20, MinimumLength = 6)]
+    [DataType(DataType.Password)]
+    [LocalizedDisplayName("Common", "ConfirmPassword")]
+    [LocalizedRequired("ErrorMessages", "ConfirmationPasswordNeeded", AllowEmptyStrings = false)]
+    [LocalizedCompare("NewPassword", "ErrorMessages", "FieldsDoNotMatch", "Common", "NewPassword", "Common", "ConfirmPassword")]
+    public string ConfirmPassword
+    {
+      get { return _confirmPasswordValue; }
+      set { _confirmPasswordValue = value; }
+    }
+
+    [Display(Name = "Remember me?")]
+    public bool RememberMe { get; set; }
+  }
+
+  public class ForgotPasswordModel
+  {
+    [LocalizedRequired("ErrorMessages", "UsernameRequired")]
+    [LocalizedDisplayName("Common", "Username")]
+    [LocalizedRegularExpression("ErrorMessages", "EmailIsNotValid", "\\w+([-+.']\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*|superuser")]
+    public string UserEmail { get; set; }
+  }
 }

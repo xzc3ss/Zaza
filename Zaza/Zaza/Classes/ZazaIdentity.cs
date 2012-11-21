@@ -16,10 +16,17 @@ namespace Zaza
       get;
       set;
     }
+
+    public Role Role
+    {
+      get;
+      set;
+    }
     public Boolean IsSuperUser { get; set; }
 
     private string _language;
     public string Language { get; set; }
+
     public System.Web.SessionState.HttpSessionState Session
     {
       get
