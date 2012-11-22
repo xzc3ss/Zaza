@@ -5,12 +5,14 @@ namespace Zaza
 {
   public static class Core
   {
-
-    #region Properties
-
-
+    #region "Enums"
+    public  enum  Roles
+    {
+      Superuser = 1, User = 2, Admin = 3
+    }
     #endregion
 
+    #region Properties
     public static HttpContext GlobalHttpContext { get; set; }
 
     public static System.Web.SessionState.HttpSessionState Session
@@ -105,7 +107,7 @@ namespace Zaza
     //	End Function
 
     //#End Region
-
+    #endregion
     #region "Methods"
 
     public static void InitializeDataContext()

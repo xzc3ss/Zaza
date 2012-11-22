@@ -20,12 +20,13 @@ namespace Zaza.Entities
         }
     
         public int ID { get; set; }
-        public Nullable<int> RoleID { get; set; }
+        public int RoleID { get; set; }
         public string UserName { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
+        public string UniqueKey { get; set; }
         public Nullable<bool> Active { get; set; }
         public Nullable<System.DateTime> AddedDate { get; set; }
         public Nullable<bool> Deleted { get; set; }

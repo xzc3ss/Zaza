@@ -207,6 +207,6 @@ D:\Dropbox\Zaza\Zaza\trunk\Zaza\Zaza\bin\DotNetOpenAuth.OAuth.Consumer.xml
 D:\Dropbox\Zaza\Zaza\trunk\Zaza\Zaza\bin\DotNetOpenAuth.OAuth.xml
 D:\Dropbox\Zaza\Zaza\trunk\Zaza\Zaza\bin\DotNetOpenAuth.OpenId.xml
 D:\Dropbox\Zaza\Zaza\trunk\Zaza\Zaza\bin\DotNetOpenAuth.OpenId.RelyingParty.xml
+D:\Dropbox\Zaza\Zaza\trunk\Zaza\Zaza\obj\Debug\Zaza.csprojResolveAssemblyReference.cache
 D:\Dropbox\Zaza\Zaza\trunk\Zaza\Zaza\obj\Debug\Zaza.dll
 D:\Dropbox\Zaza\Zaza\trunk\Zaza\Zaza\obj\Debug\Zaza.pdb
-D:\Dropbox\Zaza\Zaza\trunk\Zaza\Zaza\obj\Debug\Zaza.csprojResolveAssemblyReference.cache

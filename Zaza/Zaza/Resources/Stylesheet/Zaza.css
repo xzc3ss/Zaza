@@ -28,6 +28,33 @@ ul
   padding: 0;
 }
 
+
+input[type="text"], input[type="password"]
+{
+  -moz-transition: border 0.2s linear 0s, box-shadow 0.2s linear 0s;
+  border: 1px solid #CCCCCC;
+  border-radius: 3px 3px 3px 3px;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
+  color: #707070;
+  height: 24px;
+  line-height: 24px;
+  margin: 0 0 10px 23px;
+  padding-left: 3px;
+  width: 180px;
+}
+
+  input[type="text"]:hover, input[type="password"]:hover
+  {
+    /*border-color: rgba(82, 168, 236, 0.8);*/
+    /*border-color: rgba(99, 49, 86, 0.8);
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(99, 49, 86, 0.8);*/
+    /*border-color:rgb(44.7%, 20.8%, 38.4%);
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgb(44.7%, 20.8%, 38.4%);*/
+    border-color: rgb(57.3%, 23.9%, 48.2%);
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgb(57.3%, 23.9%, 45.2%);
+    outline: 0 none;
+  }
+
 #login
 {
   display: block;
@@ -203,17 +230,36 @@ a#cart
   background-color: #FFFFFF;
   padding: 10px;
   overflow: hidden;
-}
-
-
-
-#main-content
-{
-  color: #9A9999;
+  color: #311E2C;
+  font-weight: bold;
   font-family: Arial,Helvetica,sans-serif;
   font-size: 12px;
   line-height: 17px;
 }
+
+  #main-content ul.input-fields
+  {
+    list-style: none;
+  }
+
+    #main-content ul.input-fields li
+    {
+      display: block;
+      width: 180px;
+    }
+
+    #main-content ul.input-fields label
+    {
+      margin-left: 24px;
+      width: 180px;
+      display: block;
+    }
+
+/*#main-content
+{
+  color: #9A9999;
+  
+}*/
 
 .login-content
 {
@@ -225,7 +271,7 @@ a#cart
     width: 200px;
     height: 25px;
     border-radius: 5px;
-    margin-bottom:5px;
+    margin-bottom: 5px;
   }
 
   .login-content h2

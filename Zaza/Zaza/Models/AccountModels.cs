@@ -90,7 +90,7 @@ namespace Zaza.Models
   {
     //[LocalizedRequired("ErrorMessages", "UsernameRequired")]
     //[LocalizedDisplayName["Common", "Username"]]
-    [LocalizedRegularExpression("ErrorMessages", "EmailIsNotValid", "\\w+([-+.']\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*|superuser")]
+    [LocalizedRegularExpression("ErrorMessages", "error", "\\w+([-+.']\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*|superuser")]
     public string Email { get; set; }
 
     [DataType(DataType.Password)]
@@ -105,9 +105,15 @@ namespace Zaza.Models
   public class RegisterModel
   {
     [Required]
-    [Display(Name = "User name")]
-    public string UserName { get; set; }
-
+    [Display(Name = "First name")]
+    public string FirstName { get; set; }
+    [Required]
+    [Display(Name = "Last name")]
+    public string LastName { get; set; }
+    [Required]
+    [Display(Name = "Email")]
+    [LocalizedRegularExpression("ErrorMessages", "error", "\\w+([-+.']\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*|superuser")]
+    public string Email { get; set; }
     [Required]
     [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
     [DataType(DataType.Password)]

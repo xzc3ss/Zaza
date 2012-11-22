@@ -179,6 +179,7 @@
     <Compile Include="Classes\Attributes\LocalizedDisplayName.cs" />
     <Compile Include="Classes\Attributes\LocalizedRegularExpression.cs" />
     <Compile Include="Classes\Attributes\LocalizedRequiredAttribute.cs" />
+    <Compile Include="Classes\DropDownHelpers.cs" />
     <Compile Include="Classes\Grid.cs" />
     <Compile Include="Classes\Helpers\ExtendableButton.cs" />
     <Compile Include="Classes\Helpers\FirstLetterFilter.cs" />
@@ -413,6 +414,9 @@
       <DependentUpon>Zaza.edmx</DependentUpon>
       <LastGenOutput>Zaza.cs</LastGenOutput>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\AdminHeader.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

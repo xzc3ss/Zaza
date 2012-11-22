@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using Zaza.Entities;
-using User = Zaza.Entities.User;
+using Zaza.Models;
+
+
 
 namespace Zaza.Classes.Managers
 {
@@ -53,6 +55,22 @@ namespace Zaza.Classes.Managers
       //}
 
       return createdUser;
+    }
+
+    public static User CreateUserAndAccount(RegisterModel registerDates)
+    {
+      var newRegisteredUser = new User();
+      newRegisteredUser.Email = registerDates.Email;
+      newRegisteredUser.UserName = registerDates.Email;
+      newRegisteredUser.UniqueKey = Guid.NewGuid().ToString();
+      newRegisteredUser.FirstName = registerDates.FirstName;
+      newRegisteredUser.LastName = registerDates.LastName;
+      newRegisteredUser.Password = registerDates.Password;
+      newRegisteredUser.RoleID = (int)Core.Roles.User;
+      newRegisteredUser.AddedDate = DateTime.Now;
+      Core.DataContext.Users.Add(newRegisteredUser);
+      Core.DataContext.SaveChanges();
+      return newRegisteredUser;
     }
   }
 }

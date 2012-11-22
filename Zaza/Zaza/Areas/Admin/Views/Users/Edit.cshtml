@@ -13,7 +13,18 @@
   @using (Html.BeginForm("Edit", "Users", FormMethod.Post, new { id = "user-form" }))
   {
     @Html.ValidationSummary()
-    @Html.EditorForModel()
+ 
+    <ul class="input-fields">
+      <li>@Html.LabelFor(e => e.UserName)
+        @Html.EditorFor(e => e.UserName)</li>
+      <li>@Html.LabelFor(e => e.Email)
+        @Html.EditorFor(e => e.Email)</li>
+      <li>@Html.LabelFor(e => e.Password)@Html.EditorFor(e => e.Password)</li>
+      <li>@Html.LabelFor(e => e.FirstName)@Html.EditorFor(e => e.FirstName)</li>
+      <li>@Html.LabelFor(e => e.LastName)@Html.EditorFor(e => e.LastName)</li>
+      <li>@Html.LabelFor(e => e.RoleID)
+        @Html.EditorFor(e => e.LastName)</li>
+    </ul>
   }
 
 
@@ -25,7 +36,7 @@
       <span>Back</span>
 
     </a>
-   
+
     @*  @Html.ActionLink("AddNew", "Edit", "Users", new { mode = "create" }, null)*@
 
     @*<div style="clear: both;">

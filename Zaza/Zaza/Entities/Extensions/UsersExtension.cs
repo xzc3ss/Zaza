@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using Zaza.Classes.Attributes;
 
 namespace Zaza.Entities
 {
@@ -11,7 +12,7 @@ namespace Zaza.Entities
   {
     [ScaffoldColumn(false)]
     public int ID { get; set; }
-    //[LocalizedRegularExpression("ErrorMessages", "EmailIsNotValid", "\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*")]
+
     public System.String Email
     {
       get;

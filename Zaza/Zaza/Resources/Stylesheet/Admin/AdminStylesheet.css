@@ -321,3 +321,44 @@ a.pager-next
 }
 
 /* End Grid */
+/*#contentwrapper ul.input-fields
+{
+  width: 180px;
+  display: block;
+}*/
+ul.input-fields
+{
+  width: 350px;
+  overflow: hidden;
+}
+
+  ul.input-fields li
+  {
+    display: block;
+    overflow: hidden;
+  }
+
+  ul.input-fields input[type="text"]
+  {
+    margin-bottom: 10px;
+    margin-left: 10px;
+    -moz-transition: border 0.2s linear 0s, box-shadow 0.2s linear 0s;
+    border: 1px solid #CCCCCC;
+    border-radius: 3px 3px 3px 3px;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
+    color: #707070;
+    height: 22px;
+    line-height: 22px;
+    padding-left: 3px;
+    width: 180px;
+    float: right;
+  }
+
+  ul.input-fields label
+  {
+    margin-left: 24px;
+    width: 50px;
+    clear: both;
+    float: left;
+    line-height: 27px;
+  }

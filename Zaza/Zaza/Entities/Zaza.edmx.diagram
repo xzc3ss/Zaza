@@ -5,21 +5,21 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="a22dcd4b12614053ba86c11c60901bdc" Name="Diagram1">
-        <EntityTypeShape EntityType="ZazaModel.Category" Width="1.5" PointX="7.1368865366731242" PointY="0.92477776153235591" />
-        <EntityTypeShape EntityType="ZazaModel.Country" Width="1.5" PointX="7.17576607278351" PointY="17.058005415395836" />
-        <EntityTypeShape EntityType="ZazaModel.DeliveryAddress" Width="1.5" PointX="1.6566780999566793" PointY="24.383093457847412" />
-        <EntityTypeShape EntityType="ZazaModel.OrderDetail" Width="1.5" PointX="2.373359744610898" PointY="28.652320621838943" />
-        <EntityTypeShape EntityType="ZazaModel.Order" Width="1.5" PointX="9.5298144545079282" PointY="2.7447394443418549" />
-        <EntityTypeShape EntityType="ZazaModel.ProductMedia" Width="1.5" PointX="11.227640926478264" PointY="0.9687965516787006" />
-        <EntityTypeShape EntityType="ZazaModel.Product" Width="1.5" PointX="9.2545892322690175" PointY="25.922075745613348" />
-        <EntityTypeShape EntityType="ZazaModel.Role" Width="1.5" PointX="6.9528130250763205" PointY="0.1530257166144558" />
-        <EntityTypeShape EntityType="ZazaModel.SizeingChart" Width="1.5" PointX="6.6001766466536456" PointY="23.658011834909214" />
-        <EntityTypeShape EntityType="ZazaModel.Supplier" Width="1.5" PointX="5.39153058332928" PointY="10.891638626759704" />
-        <EntityTypeShape EntityType="ZazaModel.SupplierSentOrder" Width="1.5" PointX="3.9769131299000762" PointY="22.060913513442927" />
-        <EntityTypeShape EntityType="ZazaModel.SuppTable" Width="1.5" PointX="2.5889576443419595" PointY="16.366058312526931" />
-        <EntityTypeShape EntityType="ZazaModel.User" Width="1.5" PointX="3.884241595810392" PointY="1.829502479093849" />
-        <EntityTypeShape EntityType="ZazaModel.WebsiteCredential" Width="1.5" PointX="0.57059695225702456" PointY="23.267462085591379" />
-        <EntityTypeShape EntityType="ZazaModel.WhishList" Width="1.5" PointX="3.1017904202927795" PointY="23.318710308204736" />
+        <EntityTypeShape EntityType="ZazaModel.Category" Width="1.5" PointX="7.6941126266932631" PointY="5.5164345081506454" />
+        <EntityTypeShape EntityType="ZazaModel.Country" Width="1.5" PointX="3.2688087649963835" PointY="23.947620730822731" />
+        <EntityTypeShape EntityType="ZazaModel.DeliveryAddress" Width="1.5" PointX="0.95465054221202172" PointY="12.438797420095092" />
+        <EntityTypeShape EntityType="ZazaModel.OrderDetail" Width="1.5" PointX="6.6780129162026629" PointY="17.618396797039733" />
+        <EntityTypeShape EntityType="ZazaModel.Order" Width="1.5" PointX="5.0100942202890728" PointY="6.6979169876770666" />
+        <EntityTypeShape EntityType="ZazaModel.ProductMedia" Width="1.5" PointX="10.7994165061039" PointY="28.058192176771438" />
+        <EntityTypeShape EntityType="ZazaModel.Product" Width="1.5" PointX="6.5439328022971432" PointY="19.7644554319626" />
+        <EntityTypeShape EntityType="ZazaModel.Role" Width="1.5" PointX="10.367783366873759" PointY="25.381547745960553" />
+        <EntityTypeShape EntityType="ZazaModel.SizeingChart" Width="1.5" PointX="2.4390759051028059" PointY="3.6445240991397405" />
+        <EntityTypeShape EntityType="ZazaModel.Supplier" Width="1.5" PointX="10.098536660009312" PointY="10.575657432235618" />
+        <EntityTypeShape EntityType="ZazaModel.SupplierSentOrder" Width="1.5" PointX="0.62187260790815235" PointY="4.7459297500298963" />
+        <EntityTypeShape EntityType="ZazaModel.SuppTable" Width="1.5" PointX="0.74456173774998713" PointY="31.873062640369433" />
+        <EntityTypeShape EntityType="ZazaModel.User" Width="1.5" PointX="7.396075725274196" PointY="20.855711469825224" />
+        <EntityTypeShape EntityType="ZazaModel.WebsiteCredential" Width="1.5" PointX="6.7461697583767446" PointY="18.616769411888331" />
+        <EntityTypeShape EntityType="ZazaModel.WhishList" Width="1.5" PointX="3.3054572731747558" PointY="20.228035831930132" />
         <AssociationConnector Association="ZazaModel.FK_DeliveryAddresses_DeliveryAddresses" />
         <AssociationConnector Association="ZazaModel.FK_ProductMedia_Products" />
         <AssociationConnector Association="ZazaModel.FK_Users_Roles" />

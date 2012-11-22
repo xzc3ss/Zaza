@@ -41,12 +41,12 @@
   </script>*@
 </head>
 <body>
-  @* <div id="header">
-    @Html.Partial("HeaderBottom")
-  </div>*@
+  <div id="header">
+    @Html.Partial("AdminHeader")
+  </div>
   <div style="width: 950px; margin: auto; clear: both; position: relative; z-index: 200;">
     <div id="slideMenu" class="al jqueryslidemenu">
-      @Html.Action("MainAdminMenu", "MenuAdmin",  new { area = "Admin"})
+      @Html.Action("MainAdminMenu", "MenuAdmin", new { area = "Admin" })
     </div>
   </div>
   <div id="container" class="container-info" style="clear: both;">

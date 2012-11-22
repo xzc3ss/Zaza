@@ -201,12 +201,13 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="RoleID" Type="int" />
+          <Property Name="RoleID" Type="int" Nullable="false" />
           <Property Name="UserName" Type="varchar" Nullable="false" MaxLength="50" />
           <Property Name="Email" Type="varchar" Nullable="false" MaxLength="50" />
           <Property Name="Password" Type="varchar" Nullable="false" MaxLength="50" />
           <Property Name="FirstName" Type="varchar" MaxLength="50" />
           <Property Name="LastName" Type="varchar" MaxLength="50" />
+          <Property Name="UniqueKey" Type="varchar" MaxLength="50" />
           <Property Name="Active" Type="bit" />
           <Property Name="AddedDate" Type="date" />
           <Property Name="Deleted" Type="bit" />
@@ -277,7 +278,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Users_Roles">
-          <End Role="Roles" Type="ZazaModel.Store.Roles" Multiplicity="0..1" />
+          <End Role="Roles" Type="ZazaModel.Store.Roles" Multiplicity="1" />
           <End Role="Users" Type="ZazaModel.Store.Users" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Roles">
@@ -506,12 +507,13 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Type="Int32" Name="ID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="Int32" Name="RoleID" />
+          <Property Type="Int32" Name="RoleID" Nullable="false" />
           <Property Type="String" Name="UserName" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="Email" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="Password" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="FirstName" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="LastName" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="UniqueKey" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Type="Boolean" Name="Active" />
           <Property Type="DateTime" Name="AddedDate" Precision="0" />
           <Property Type="Boolean" Name="Deleted" />
@@ -561,7 +563,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Users_Roles">
-          <End Type="ZazaModel.Role" Role="Role" Multiplicity="0..1" />
+          <End Type="ZazaModel.Role" Role="Role" Multiplicity="1" />
           <End Type="ZazaModel.User" Role="User" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Role">
@@ -762,6 +764,7 @@
                 <ScalarProperty Name="Deleted" ColumnName="Deleted" />
                 <ScalarProperty Name="AddedDate" ColumnName="AddedDate" />
                 <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="UniqueKey" ColumnName="UniqueKey" />
                 <ScalarProperty Name="LastName" ColumnName="LastName" />
                 <ScalarProperty Name="FirstName" ColumnName="FirstName" />
                 <ScalarProperty Name="Password" ColumnName="Password" />
