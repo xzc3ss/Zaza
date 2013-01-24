@@ -3,20 +3,46 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.IO;
 
-namespace ImagesManagement.Controllers
+namespace ImagesManagement
 {
-    public class ImagesController : Controller
+  public class ImagesController : Controller
+  {
+    //
+    // GET: /Images/
+
+    public ActionResult Index()
     {
-        //
-        // GET: /Images/
-
-        public ActionResult Index()
-        {
-            return View();
-        }
-
+      return View();
     }
+
+    public ActionResult ProcessImageUsingRoute(string application, string dir, string bulk, string id, string size, string imageFileName)
+    {
+      return ProcessOriginalImageUsingRoute(application, dir, bulk, id, size, "", imageFileName);
+    }
+
+    public ActionResult ProcessOriginalImageUsingRoute(string application, string dir, string bulk, string id, string size, string mobile, string imageFileName)
+    {
+      var staticPath = Server.MapPath("~/" + application);
+      //replace old server.urlEncoding
+      imageFileName = imageFileName.Replace("+", " ");
+      var picturePath = Path.Combine(staticPath, size, imageFileName);
+      if (!string.IsNullOrEmpty(dir))
+      {
+        staticPath = Server.MapPath("~/" + application + "/" + dir);
+        picturePath = Path.Combine(staticPath, size, imageFileName);
+      }
+
+      if (!String.IsNullOrEmpty(bulk) && !string.IsNullOrEmpty(id))
+      {
+        picturePath = Path.Combine(staticPath, bulk, id, size, imageFileName);
+
+      }
+    }
+
+
+  }
 }
 
 
@@ -28,9 +54,7 @@ namespace ImagesManagement.Controllers
 //    Inherits System.Web.Mvc.Controller
 
 //    ' resize / crop image
-//    Public Function ProcessImageUsingRoute(ByVal application As String, ByVal dir As String, ByVal bulk As String, ByVal id As String, ByVal size As String, ByVal imageFileName As String) As ActionResult
-//      Return ProcessOriginalImageUsingRoute(application, dir, bulk, id, size, "", imageFileName)
-//    End Function
+
 
 //    Public Function ProcessOriginalImageUsingRoute(ByVal application As String, ByVal dir As String, ByVal bulk As String, ByVal id As String, ByVal size As String, ByVal mobile As String, ByVal imageFileName As String) As ActionResult
 //      Dim staticPath = Server.MapPath("~/" & application)
